@@ -220,6 +220,34 @@ details[open] .faq-x{transform:rotate(45deg)}
 .copy-btn:hover{border-color:#4aa8e8;color:#dcebf5}
 .mail-note{margin:12px 0 0;font-size:13px;color:#7d99b0;line-height:1.5}
 
+/* ---- inline demo form (contact) ---- */
+.demo-form{max-width:440px;margin:26px auto 0;text-align:left}
+.form-lead{font-family:var(--mono);font-size:12px;letter-spacing:0.06em;color:#9dbcd2;text-align:center;margin:0 0 14px}
+.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.chip{font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:0.03em;background:transparent;color:#9dbcd2;border:1px solid #2a5378;border-radius:999px;padding:9px 15px;cursor:pointer;transition:background .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease)}
+.chip:hover{border-color:#4aa8e8;color:#dcebf5}
+.chip[aria-pressed="true"]{background:#dcebf5;color:var(--navy);border-color:#dcebf5}
+.field{margin-bottom:11px}
+.field label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:0.06em;color:#7d99b0;margin:0 0 5px}
+.field input,.field textarea{width:100%;background:var(--navy2);border:1px solid #2a5378;border-radius:9px;padding:13px 14px;font-family:var(--body);font-size:15.5px;color:#eaf3f7;transition:border-color .25s var(--ease),box-shadow .25s var(--ease)}
+.field input::placeholder,.field textarea::placeholder{color:#5f83a0}
+.field input:focus,.field textarea:focus{outline:none;border-color:#4aa8e8;box-shadow:0 0 0 3px rgba(74,168,232,0.18)}
+.field textarea{resize:vertical;min-height:74px;line-height:1.5}
+.demo-form .btn-lg{width:100%;margin-top:6px}
+.form-micro{font-family:var(--mono);font-size:11px;color:#5f83a0;text-align:center;margin:12px 0 0;letter-spacing:0.04em}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.form-status{margin:16px 0 0;font-size:14.5px;line-height:1.55;text-align:center;padding:14px 16px;border-radius:10px}
+.form-status.err{color:#ffd9c2;background:rgba(232,132,60,0.12);border:1px solid #6b5330}
+.form-sent{text-align:center;padding:30px 18px}
+.form-sent .sd{width:26px;height:33px;margin:0 auto 14px;display:block}
+.form-sent .sd path{fill:var(--sky)}
+.form-sent h3{font-family:var(--disp);font-weight:700;font-size:22px;color:#fff;margin:0 0 8px}
+.form-sent p{font-size:15px;color:#9dbcd2;margin:0;max-width:340px;margin-inline:auto}
+.alt-toggle{display:block;margin:20px auto 0;background:none;border:none;font-family:var(--mono);font-size:12px;letter-spacing:0.05em;color:#7d99b0;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.alt-toggle:hover{color:#dcebf5}
+.alt-wrap[hidden]{display:none}
+.alt-wrap{margin-top:18px;padding-top:18px;border-top:1px dotted #1d3a58}
+
 /* ---- footer ---- */
 .foot{padding:28px 24px 44px;max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
 .foot img{height:22px;display:block}
@@ -565,10 +593,64 @@ details[open] .faq-x{transform:rotate(45deg)}
     <p class="sub" data-rise data-i18n="ctaSub">We're starting with a limited number of Pokhara homes. A free demo takes about 20 minutes: we test your current water in front of you — no obligation. The launch list gets priority.</p>
     <p class="contact-accent" data-rise lang="ne" data-i18n="ctaAccent">पहिले सोध्नुहोस्, अनि निर्णय गर्नुहोस्।</p>
     <p class="proof" data-rise data-i18n="ctaProof">22 HOMES ASKED FOR A DEMO — BEFORE WE EVEN LAUNCHED</p>
-    <div data-rise>
-      <div class="cta-btns">
-        <a class="btn btn-lg" href="mailto:contact@koracarenepal.com?subject=Free%20home%20demo%20request%20—%20KORA%20CARE" data-i18n="ctaBtn">Request a free demo by email</a>
-        <!-- WhatsApp slot — set WHATSAPP_NUMBER in the script below when the Nepal SIM is active (October 2026) -->
+    <!-- primary: inline demo form (delivers to contact@ via FormSubmit; works without JS, upgrades to inline AJAX) -->
+    <form class="demo-form" id="demo-form" data-rise
+          action="https://formsubmit.co/contact@koracarenepal.com" method="POST"
+          aria-label="Request a free home demo">
+      <p class="form-lead" data-i18n="formLead">HOW SHOULD WE REACH YOU?</p>
+      <div class="chips" role="group" aria-label="Preferred contact method">
+        <button type="button" class="chip" data-ch="wa" aria-pressed="true" data-i18n="chWa">📱 WhatsApp</button>
+        <button type="button" class="chip" data-ch="ig" aria-pressed="false" data-i18n="chIg">📷 Instagram</button>
+        <button type="button" class="chip" data-ch="em" aria-pressed="false" data-i18n="chEm">✉️ Email</button>
+      </div>
+
+      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_subject" value="New free-demo request — KORA CARE">
+      <input type="hidden" name="_next" value="https://koracarenepal.com/?sent=1">
+      <input type="hidden" name="Preferred contact" id="pref-field" value="WhatsApp">
+
+      <div class="field">
+        <label for="f-name" data-i18n="lblName">YOUR NAME</label>
+        <input id="f-name" name="Name" type="text" required autocomplete="name" data-i18n-ph="phName" placeholder="e.g. Sita Gurung">
+      </div>
+      <div class="field ch-field" data-ch="wa">
+        <label for="f-wa" data-i18n="lblWa">WHATSAPP NUMBER</label>
+        <input id="f-wa" name="WhatsApp" type="tel" inputmode="tel" required autocomplete="tel" data-i18n-ph="phWa" placeholder="98XXXXXXXX">
+      </div>
+      <div class="field ch-field" data-ch="ig" hidden>
+        <label for="f-ig" data-i18n="lblIg">INSTAGRAM HANDLE</label>
+        <input id="f-ig" name="Instagram" type="text" required disabled autocomplete="off" data-i18n-ph="phIg" placeholder="@yourhandle">
+      </div>
+      <div class="field ch-field" data-ch="em" hidden>
+        <label for="f-em" data-i18n="lblEm">EMAIL ADDRESS</label>
+        <input id="f-em" name="Email" type="email" required disabled autocomplete="email" data-i18n-ph="phEm" placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label for="f-area" data-i18n="lblArea">YOUR AREA (OPTIONAL)</label>
+        <input id="f-area" name="Area" type="text" autocomplete="off" data-i18n-ph="phArea" placeholder="Ward / Tole, Pokhara">
+      </div>
+      <div class="field">
+        <label for="f-msg" data-i18n="lblMsg">MESSAGE (OPTIONAL)</label>
+        <textarea id="f-msg" name="Message" data-i18n-ph="phMsg" placeholder="Anything you'd like us to know"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-lg" data-i18n="formBtn">Request my free demo</button>
+      <p class="form-micro" data-i18n="formMicro">No obligation. We'll only message you about your demo.</p>
+      <p class="form-status err" id="form-status" role="alert" hidden></p>
+    </form>
+
+    <div class="form-sent" id="form-sent" hidden data-rise>
+      <svg class="sd" viewBox="0 0 24 30" aria-hidden="true"><path d="M12 2C12 2 3 13 3 19.5a9 9 0 0 0 18 0C21 13 12 2 12 2Z"/></svg>
+      <h3 data-i18n="sentH">Got it — thank you.</h3>
+      <p data-i18n="sentP">We'll message you within a day to set up your free demo. No obligation.</p>
+    </div>
+
+    <button type="button" class="alt-toggle" id="alt-toggle" data-i18n="altToggle">Prefer to write to us directly?</button>
+    <div class="alt-wrap" id="alt-wrap" hidden>
+      <div class="cta-btns" style="justify-content:center">
+        <!-- WhatsApp direct-chat slot — set WHATSAPP_NUMBER in the script when the Nepal SIM is active (October 2026) -->
         <a class="btn-ghost" id="wa-btn" href="#" hidden data-i18n="waBtn">Chat on WhatsApp</a>
       </div>
       <div class="mailbox">
@@ -675,6 +757,17 @@ details[open] .faq-x{transform:rotate(45deg)}
     waBtn:'WhatsApp मा कुरा गर्नुहोस्',
     mailNote:'फोनमा मेल एप छैन? माथिको ठेगाना छानेर कपी गर्न मिल्छ — जहाँबाट पनि लेख्नुहोस्।',
     copyBtn:'कपी', copiedBtn:'कपी भयो ✓',
+    formLead:'तपाईंलाई कसरी सम्पर्क गरौं?',
+    lblName:'तपाईंको नाम', lblWa:'WhatsApp नम्बर', lblIg:'Instagram ह्यान्डल', lblEm:'इमेल ठेगाना',
+    lblArea:'तपाईंको क्षेत्र (वैकल्पिक)', lblMsg:'सन्देश (वैकल्पिक)',
+    phName:'जस्तै: सीता गुरुङ', phArea:'वडा / टोल, पोखरा', phMsg:'भन्न चाहेको केही कुरा',
+    formBtn:'निःशुल्क डेमो अनुरोध गर्नुहोस्',
+    formMicro:'कुनै बाध्यता छैन। हामी डेमोबारे मात्र सम्पर्क गर्छौं।',
+    sentH:'प्राप्त भयो — धन्यवाद।',
+    sentP:'हामी एक दिनभित्र सम्पर्क गरी निःशुल्क डेमो मिलाउँछौं। कुनै बाध्यता छैन।',
+    altToggle:'सिधै हामीलाई लेख्न चाहनुहुन्छ?',
+    formSending:'पठाउँदै…',
+    formErr:'पठाउन सकिएन। कृपया contact@koracarenepal.com मा लेख्नुहोस्।',
     footCopy:'© २०२६ कोरा केयर · पोखरा, नेपाल'
   };
   var EN_EXTRA = { copiedBtn:'COPIED ✓', copyBtn:'COPY' };
@@ -690,6 +783,12 @@ details[open] .faq-x{transform:rotate(45deg)}
       if (el.dataset.en === undefined) el.dataset.en = el.textContent;
       if (l === 'ne' && NE[key] !== undefined) el.textContent = NE[key];
       else el.textContent = el.dataset.en;
+    });
+    /* placeholders (form fields) — same fallback-to-EN rule */
+    document.querySelectorAll('[data-i18n-ph]').forEach(function (el) {
+      var k = el.getAttribute('data-i18n-ph');
+      if (el.dataset.enPh === undefined) el.dataset.enPh = el.getAttribute('placeholder') || '';
+      el.setAttribute('placeholder', (l === 'ne' && NE[k] !== undefined) ? NE[k] : el.dataset.enPh);
     });
     document.getElementById('lang-en').setAttribute('aria-pressed', l === 'en' ? 'true' : 'false');
     document.getElementById('lang-ne').setAttribute('aria-pressed', l === 'ne' ? 'true' : 'false');
@@ -729,6 +828,80 @@ details[open] .faq-x{transform:rotate(45deg)}
     try { document.execCommand('copy'); flashCopied(); } catch (e) {}
     document.body.removeChild(ta);
   }
+
+  /* ---------- inline demo form (channel-first, FormSubmit AJAX) ---------- */
+  (function () {
+    var form = document.getElementById('demo-form');
+    if (!form) return;
+    var chips = [].slice.call(form.querySelectorAll('.chip'));
+    var chFields = [].slice.call(form.querySelectorAll('.ch-field'));
+    var pref = document.getElementById('pref-field');
+    var subject = form.querySelector('input[name="_subject"]');
+    var statusEl = document.getElementById('form-status');
+    var sent = document.getElementById('form-sent');
+    var altToggle = document.getElementById('alt-toggle');
+    var altWrap = document.getElementById('alt-wrap');
+    var label = { wa: 'WhatsApp', ig: 'Instagram', em: 'Email' };
+
+    function selectChannel(ch) {
+      chips.forEach(function (c) { c.setAttribute('aria-pressed', c.dataset.ch === ch ? 'true' : 'false'); });
+      chFields.forEach(function (f) {
+        var on = f.dataset.ch === ch;
+        f.hidden = !on;
+        var inp = f.querySelector('input');
+        if (inp) inp.disabled = !on;   /* disabled fields are skipped by validation AND excluded from submit */
+      });
+      if (pref) pref.value = label[ch];
+      if (subject) subject.value = 'New free-demo request (' + label[ch] + ') — KORA CARE';
+    }
+    chips.forEach(function (c) { c.addEventListener('click', function () { selectChannel(c.dataset.ch); }); });
+    selectChannel('wa');
+
+    if (altToggle && altWrap) {
+      altToggle.addEventListener('click', function () {
+        var open = altWrap.hidden;
+        altWrap.hidden = !open;
+        altToggle.setAttribute('aria-expanded', String(open));
+      });
+    }
+
+    function showSent() {
+      form.hidden = true;
+      if (altToggle) altToggle.hidden = true;
+      if (altWrap) altWrap.hidden = true;
+      if (sent) { sent.hidden = false; sent.style.opacity = '1'; sent.style.transform = 'none'; }
+    }
+
+    /* no-JS fallback returns here with ?sent=1 */
+    if (/[?&]sent=1/.test(location.search)) {
+      showSent();
+      var c = document.getElementById('contact');
+      if (c && c.scrollIntoView) c.scrollIntoView();
+    }
+
+    form.addEventListener('submit', function (e) {
+      var honey = form.querySelector('input[name="_honey"]');
+      if (honey && honey.value) { e.preventDefault(); showSent(); return; }   /* bot — swallow silently */
+      if (!window.fetch || !window.FormData) return;                          /* no fetch → let native POST run */
+      e.preventDefault();
+      if (statusEl) statusEl.hidden = true;
+      var btn = form.querySelector('button[type="submit"]');
+      var orig = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = (lang === 'ne' ? NE.formSending : 'Sending…'); }
+      fetch('https://formsubmit.co/ajax/contact@koracarenepal.com', {
+        method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' }
+      }).then(function (r) {
+        if (!r.ok) throw new Error('http');
+        return r.json();
+      }).then(function () {
+        showSent();
+      }).catch(function () {
+        if (btn) { btn.disabled = false; btn.textContent = orig; }
+        if (statusEl) { statusEl.hidden = false; statusEl.textContent = (lang === 'ne' ? NE.formErr : "Couldn't send. Please write to us at contact@koracarenepal.com."); }
+        if (altWrap) altWrap.hidden = false;
+      });
+    });
+  })();
 
   /* ---------- motion engine (single curve, scroll-driven, perf-gated) ---------- */
   var stagesEl = document.getElementById('stages');
