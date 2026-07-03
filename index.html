@@ -83,8 +83,6 @@ html.js.static .intro{animation:none}
 .hero-in{position:relative;z-index:2;display:grid;grid-template-columns:1fr;gap:48px;align-items:center;padding:56px 24px 52px;max-width:1180px;margin:0 auto}
 .hero h1{font-size:clamp(38px,5.8vw,66px);margin:18px 0 20px}
 .hero h1 .b{position:relative;color:var(--blue);white-space:nowrap}
-html.js:not(.static) .hero h1 .b{background:linear-gradient(100deg,var(--blue) 42%,#9fd6ee 50%,var(--blue) 58%);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 4.6s var(--ease) 1.6s infinite}
-@keyframes shine{0%{background-position:190% 0}55%{background-position:-70% 0}100%{background-position:-70% 0}}
 .hero .sub{font-size:clamp(16px,2vw,19px)}
 .accent{margin:12px 0 0;font-size:16.5px;color:var(--soft)}
 .cta-row{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:32px}
@@ -806,9 +804,10 @@ details[open] .faq-x{transform:rotate(45deg)}
     /* scrub reveals — element follows your finger into place */
     active.forEach(function (el) {
       var r = el.getBoundingClientRect();
-      var p = eo(cl((vh - r.top) / (vh * 0.5), 0, 1));
+      /* tight window: fully revealed once ~1/3 up the screen — no lingering half-faded rest states */
+      var p = eo(cl((vh - r.top) / (vh * 0.35), 0, 1));
       el.style.opacity = p;
-      el.style.transform = 'translateY(' + ((1 - p) * 26) + 'px)';
+      el.style.transform = 'translateY(' + ((1 - p) * 20) + 'px)';
     });
 
     /* hero ridge parallax — the mountains move slower than you */
