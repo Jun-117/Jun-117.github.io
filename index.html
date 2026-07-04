@@ -16,11 +16,77 @@
 <meta property="og:image:alt" content="KORA CARE — Unlimited clean water, from your own tap. Pokhara, launching October 2026.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://koracarenepal.com/og.png">
+<link rel="canonical" href="https://koracarenepal.com/">
 <meta name="theme-color" content="#f2f6f5">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 30'%3E%3Cpath d='M12 2C12 2 3 13 3 19.5a9 9 0 0 0 18 0C21 13 12 2 12 2Z' fill='%231878b8'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;600;700&family=Source+Sans+3:wght@400;600&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- ============================================================
+     STRUCTURED DATA (SEO) — tells Google who we are + feeds the FAQ.
+     If the FAQ answers on the page change, change them here too:
+     Google requires this JSON to match the visible text.
+     ============================================================ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "KORA CARE",
+  "alternateName": ["KORA CARE Nepal", "KORA CARE Pokhara"],
+  "url": "https://koracarenepal.com/",
+  "logo": "https://koracarenepal.com/logo.png",
+  "email": "contact@koracarenepal.com",
+  "description": "A monthly water-purifier subscription for Pokhara homes — installation, filter replacements and a monthly service visit included. Launching October 2026.",
+  "areaServed": {
+    "@type": "City",
+    "name": "Pokhara",
+    "containedInPlace": { "@type": "Country", "name": "Nepal" }
+  },
+  "sameAs": [
+    "https://facebook.com/koracarenepal",
+    "https://instagram.com/koracarenepal",
+    "https://tiktok.com/@koracarenepal"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do I have to buy the purifier?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No — that's the point. The machine stays ours: installation, filter replacements and the monthly service visit are all part of one subscription. If it's not working, it's our problem, not yours." }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does it cost?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Exact pricing goes public at launch (October 2026). What we can say now: it's one monthly subscription, and there's no machine to buy. At your free demo we tell you the exact price, plain and complete, before you decide anything — so you can weigh it against what jar water already costs you every month." }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens at a free home demo?",
+      "acceptedAnswer": { "@type": "Answer", "text": "About 20 minutes. We test your current drinking water in front of you, explain what the numbers mean, and answer your questions. No obligation, no pressure." }
+    },
+    {
+      "@type": "Question",
+      "name": "When and where do you launch?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Pokhara, October 2026 — right after Dashain. The first batch of installations is limited, and the launch list gets priority." }
+    },
+    {
+      "@type": "Question",
+      "name": "What if something breaks or tastes wrong?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Tell us and we come. It's our equipment — repairs and filter changes are part of the service, and we re-test your water at every monthly visit anyway." }
+    },
+    {
+      "@type": "Question",
+      "name": "Our jar water seems fine — why change?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Maybe it is — but quality varies batch to batch, and you can't see it. With KORA you never lift a 20-kg jar again, never run out, and never wonder: your water is tested at your own tap, in front of you." }
+    }
+  ]
+}
+</script>
 <style>
 :root{
   --paper:#f2f6f5; --ink:#14304f; --blue:#1878b8; --sky:#7ac8e8; --navy:#0b2038;
@@ -595,6 +661,10 @@ details[open] .faq-x{transform:rotate(45deg)}
         <p class="faq-a" data-i18n="f1a">No — that's the point. The machine stays ours: installation, filter replacements and the monthly service visit are all part of one subscription. If it's not working, it's our problem, not yours.</p>
       </details>
       <details>
+        <summary><span class="faq-q" data-i18n="f6q">How much does it cost?</span><span class="faq-x" aria-hidden="true">+</span></summary>
+        <p class="faq-a" data-i18n="f6a">Exact pricing goes public at launch (October 2026). What we can say now: it's one monthly subscription, and there's no machine to buy. At your free demo we tell you the exact price, plain and complete, before you decide anything — so you can weigh it against what jar water already costs you every month.</p>
+      </details>
+      <details>
         <summary><span class="faq-q" data-i18n="f2q">What happens at a free home demo?</span><span class="faq-x" aria-hidden="true">+</span></summary>
         <p class="faq-a" data-i18n="f2a">About 20 minutes. We test your current drinking water in front of you, explain what the numbers mean, and answer your questions. No obligation, no pressure.</p>
       </details>
@@ -830,6 +900,7 @@ details[open] .faq-x{transform:rotate(45deg)}
     f3q:'कहिले र कहाँ सुरु हुन्छ?', f3a:'पोखरा, अक्टोबर २०२६ — दशैंपछि। पहिलो चरणका जडान सीमित छन्; लन्च सूचीमा हुनेले प्राथमिकता पाउँछन्।',
     f4q:'केही बिग्रियो वा स्वाद बिग्रियो भने?', f4a:'भन्नुहोस्, हामी आउँछौं। उपकरण हाम्रो हो — मर्मत र फिल्टर सेवाभित्रै पर्छ, र हरेक महिना पानी पुनः जाँचिन्छ।',
     f5q:'हाम्रो जारको पानी ठीकै छ — किन फेर्ने?', f5a:'हुन सक्छ — तर गुणस्तर खेपैपिच्छे फरक हुन्छ, र आँखाले देखिँदैन। कोरासँग २० किलोको जार फेरि उचाल्नु पर्दैन, पानी सकिँदैन, शंका गर्नु पर्दैन: तपाईंकै धारामा, तपाईंकै अगाडि जाँचिन्छ।',
+    f6q:'यसको मूल्य कति पर्छ?', f6a:'ठ्याक्कै मूल्य लन्चमै (अक्टोबर २०२६) सार्वजनिक हुन्छ। अहिले भन्न सक्ने कुरा: यो एउटै मासिक सदस्यता हो, र किन्नुपर्ने मेसिन छैन। निःशुल्क डेमोमै, तपाईंले निर्णय गर्नुअघि नै, हामी पूरा मूल्य प्रस्टसँग भन्छौं — ताकि जारको पानीमा हरेक महिना भइरहेको खर्चसँग आफैँ तुलना गर्न सक्नुहोस्।',
     ctaKicker:'पहिलो जडान — दशैंपछि · अक्टोबर २०२६', ctaH2:'आफ्नै पानी, जाँचिएको हेर्नुहोस्।',
     ctaSub:'हामी सीमित संख्याका पोखराका घरबाट सुरु गर्दैछौं। निःशुल्क डेमो करिब २० मिनेटको हुन्छ: तपाईंको अहिलेको पानी तपाईंकै अगाडि जाँच्छौं — कुनै बाध्यता छैन। लन्च सूचीले प्राथमिकता पाउँछ।',
     ctaAccent:'Ask first, then decide.',
@@ -1091,5 +1162,12 @@ details[open] .faq-x{transform:rotate(45deg)}
   requestAnimationFrame(frame);
 })();
 </script>
+
+<!-- ============================================================
+     ANALYTICS — Cloudflare Web Analytics (free, no cookies).
+     STATUS: ON (site: koracarenepal.com, account: koracarepokhara).
+     Dashboard: dash.cloudflare.com → Analytics & Logs → Web Analytics
+     ============================================================ -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "5124cc4f1b8041ba92e73fe1fb5714cb"}'></script>
 </body>
 </html>
