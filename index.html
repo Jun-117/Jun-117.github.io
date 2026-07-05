@@ -104,7 +104,7 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);l
 ::selection{background:var(--blue);color:#fff}
 img{max-width:100%}
 a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:4px}
-.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.wrap{max-width:1320px;margin:0 auto;padding:0 24px}
 .mono{font-family:var(--mono)}
 .kicker{font-family:var(--mono);font-size:11.5px;color:var(--blue);letter-spacing:0.14em;font-weight:600}
 h1,h2{font-family:var(--disp);font-weight:800;letter-spacing:-0.02em;line-height:1.05;margin:12px 0 14px;text-wrap:pretty}
@@ -122,7 +122,7 @@ html.js.static .intro{animation:none}
 
 /* ---- nav (mobile = two rows, desktop = one) ---- */
 .nav{position:sticky;top:0;z-index:50;background:rgba(242,246,245,0.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.nav-in{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;padding:10px 24px 8px;max-width:1180px;margin:0 auto}
+.nav-in{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;padding:10px 24px 8px;max-width:1320px;margin:0 auto}
 .nav-logo img{height:26px;display:block}
 .nav-links{order:3;flex-basis:100%;display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;font-family:var(--mono);font-size:11.5px;letter-spacing:0.08em;white-space:nowrap;padding-bottom:6px;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
 .nav-links::-webkit-scrollbar{display:none}
@@ -146,7 +146,7 @@ html.js.static .intro{animation:none}
 
 /* ---- hero ---- */
 .hero{position:relative;border-bottom:1px solid var(--line);overflow:hidden}
-.hero-in{position:relative;z-index:2;display:grid;grid-template-columns:1fr;gap:48px;align-items:center;padding:56px 24px 52px;max-width:1180px;margin:0 auto}
+.hero-in{position:relative;z-index:2;display:grid;grid-template-columns:1fr;gap:48px;align-items:center;padding:56px 24px 52px;max-width:1320px;margin:0 auto}
 .hero h1{font-size:clamp(38px,5.8vw,66px);margin:18px 0 20px}
 .hero h1 .b{position:relative;color:var(--blue);white-space:nowrap}
 .hero .sub{font-size:clamp(16px,2vw,19px)}
@@ -181,7 +181,7 @@ html.static .ticker-track{animation-play-state:paused}
 
 /* ---- sections ---- */
 .sec{border-bottom:1px solid var(--line)}
-.sec-in{padding:72px 24px;max-width:1180px;margin:0 auto}
+.sec-in{padding:72px 24px;max-width:1320px;margin:0 auto}
 .grid2{display:grid;grid-template-columns:1fr;gap:44px;align-items:start}
 .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
@@ -215,7 +215,7 @@ html.js .dots.in i,html.js.static .dots i{opacity:1;transform:none}
 html.js:not(.static) .pin-wrap{height:250vh}
 .pin{color:#dcebf5}
 html.js:not(.static) .pin{position:sticky;top:0;min-height:100vh;min-height:100svh;display:flex;align-items:center;overflow:hidden}
-.pin-in{width:100%;max-width:1180px;margin:0 auto;padding:64px 24px}
+.pin-in{width:100%;max-width:1320px;margin:0 auto;padding:64px 24px}
 html.js:not(.static) .pin-in{padding:24px}
 .inside-grid{display:grid;grid-template-columns:1fr;gap:36px;align-items:center}
 .pin .kicker{color:var(--gold-soft)}
@@ -245,6 +245,42 @@ html.js:not(.static) .safe.on{opacity:1}
 .safe-drop{width:20px;display:flex;justify-content:center;flex:none}
 .safe-drop i{width:8px;height:12px;border-radius:0 0 6px 6px;background:var(--sky)}
 .safe span{font-family:var(--disp);font-weight:700;font-style:italic;font-size:19px;color:var(--sky);padding-top:8px}
+
+/* ---- how: 3-way compare ---- */
+.cmp{display:grid;grid-template-columns:1fr;gap:16px;margin-top:40px}
+.cmp-col{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:28px 26px;min-width:0;box-shadow:0 6px 22px -12px rgba(20,48,79,0.16)}
+.cmp-head{font-family:var(--mono);font-size:13.5px;letter-spacing:0.06em;font-weight:700;text-transform:uppercase;padding-bottom:18px;margin-bottom:4px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:11px;color:var(--soft)}
+.cmp-head svg{width:28px;height:28px;flex:none}
+.cmp-row{padding:15px 0;border-bottom:1px dotted var(--dot)}
+.cmp-row:last-child{border-bottom:0;padding-bottom:0}
+.cmp-lab{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--soft);margin-bottom:6px}
+.cmp-val{font-size:17px;color:var(--muted);display:block;line-height:1.45}
+.cmp-tag{font-family:var(--mono);font-size:9px;letter-spacing:0.1em;background:var(--blue);color:#fff;padding:4px 8px;border-radius:5px;margin-left:auto}
+.cmp-kora{background:var(--navy);border-color:var(--navy);color:#eaf4fb;box-shadow:0 18px 40px -20px rgba(11,32,56,0.5)}
+.cmp-kora .cmp-head{color:#fff;border-bottom-color:#22405d}
+.cmp-kora .cmp-row{border-bottom-color:#18354d}
+.cmp-kora .cmp-lab{color:var(--sky)}
+.cmp-kora .cmp-val{color:#fff;font-weight:600;padding-left:16px;position:relative}
+.cmp-kora .cmp-val::before{content:"";position:absolute;left:0;top:10px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.cmp-payoff{text-align:center;font-family:var(--disp);font-weight:800;font-size:clamp(28px,4vw,46px);color:var(--ink);margin:34px 0 0;letter-spacing:-0.02em}
+.cmp-payoff b{color:var(--blue);font-weight:800}
+@media (min-width:768px){.cmp{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:1024px){.cmp-kora{transform:translateY(-8px)}.cmp-val{font-size:18px}.cmp-head{font-size:14.5px}.cmp-col{padding:32px 30px}}
+
+/* ---- problem: jar photo + big survey stats ---- */
+.prob-top{align-items:center}
+.prob-top figure{margin:0}
+.survey-big{display:grid;grid-template-columns:1fr;gap:26px;margin-top:44px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px 28px;align-items:center}
+.survey-stats .survey-head{margin-bottom:10px}
+.stat{display:flex;align-items:baseline;gap:16px;padding:20px 0;border-bottom:1px dotted var(--dot)}
+.stat-n{font-family:var(--disp);font-weight:800;font-size:clamp(38px,5vw,58px);color:var(--blue);line-height:0.95;flex:none;letter-spacing:-0.02em}
+.stat-n.g{color:var(--gold)}
+.stat p{margin:0;font-size:17px;color:var(--ink);line-height:1.4}
+.survey-big .dots{grid-template-columns:repeat(10,1fr);gap:9px;margin:0}
+.survey-big .dots i{width:100%;height:auto;aspect-ratio:1}
+@media (min-width:640px){.grid2.prob-top{grid-template-columns:auto 1fr;gap:48px}}
+@media (min-width:768px){.survey-big{grid-template-columns:1.05fr 0.95fr;gap:40px;padding:38px 36px}}
+@media (min-width:1024px){.stat p{font-size:18.5px}}
 
 /* ---- people ---- */
 .people-sig{margin-top:20px;font-family:var(--mono);font-size:12px;color:var(--soft);letter-spacing:0.06em}
@@ -315,7 +351,7 @@ details[open] .faq-x{transform:rotate(45deg)}
 .alt-wrap{margin-top:18px;padding-top:18px;border-top:1px dotted #1d3a58}
 
 /* ---- footer ---- */
-.foot{padding:28px 24px 44px;max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.foot{padding:28px 24px 44px;max-width:1320px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
 .foot img{height:22px;display:block}
 .foot div,.foot a{font-family:var(--mono);font-size:11px;letter-spacing:0.05em}
 .foot div{color:var(--soft)}
@@ -524,55 +560,67 @@ details[open] .faq-x{transform:rotate(45deg)}
 
 <!-- ================= 01 THE PROBLEM ================= -->
 <section class="sec" id="problem" data-screen-label="The problem">
-  <div class="sec-in grid2">
-    <figure data-rise>
-      <!-- jar.jpg: real field photo (Jun's own, Pokhara kitchen). If the file is missing, the striped placeholder below shows instead. -->
-      <img src="jar.jpg" alt="A 20-litre water jar on a dispenser in a Pokhara kitchen" style="width:100%;border-radius:16px;border:1px solid var(--line);display:block" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="ph jar-ph" style="display:none"><span data-i18n="jarPh">jar.jpg — 20L jar dispenser, Pokhara kitchen</span></div>
-      <figcaption class="figcap" data-i18n="jarCap">FIELD RESEARCH · POKHARA · 2025–26</figcaption>
-    </figure>
-    <div>
-      <p class="kicker" style="margin:0" data-rise data-i18n="probKicker">SECTION 01 — THE JAR ROUTINE</p>
-      <h2 data-rise data-i18n="probH2">The 20-litre habit every kitchen knows</h2>
-      <p class="sub" style="max-width:500px" data-rise data-i18n="probCopy">Order it. Wait for it. Lift it. Run out at the wrong time — and trust that this refill is as clean as the last one.</p>
-      <div class="survey" data-rise>
-        <div class="survey-head"><b data-i18n="survTitle">73 HOUSEHOLDS SURVEYED</b><span data-i18n="survN">n=73</span></div>
-        <div class="dots" id="dots" aria-hidden="true"></div>
-        <div class="survey-rows">
-          <div><span><span class="b-dot">●</span> <span data-i18n="survRow1">rely on 20L jar water</span></span><b data-i18n="survRow1V">2 in 3</b></div>
-          <div><span data-i18n="survRow2">worry their water isn't safe</span><b class="g-num" data-i18n="survRow2V">1 in 3</b></div>
-        </div>
-        <p class="cite" style="margin-bottom:0" data-i18n="survCite">KORA CARE household survey, Pokhara, June–July 2026 (n=73)</p>
+  <div class="sec-in">
+    <div class="grid2 prob-top">
+      <figure data-rise>
+        <!-- jar.jpg: real field photo (Jun's own, Pokhara kitchen). If the file is missing, the striped placeholder below shows instead. -->
+        <img src="jar.jpg" alt="A 20-litre water jar on a dispenser in a Pokhara kitchen" style="width:auto;height:auto;max-height:400px;max-width:100%;border-radius:16px;border:1px solid var(--line);display:block;margin:0 auto" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="ph jar-ph" style="display:none"><span data-i18n="jarPh">jar.jpg — 20L jar dispenser, Pokhara kitchen</span></div>
+        <figcaption class="figcap" data-i18n="jarCap">FIELD RESEARCH · POKHARA · 2025–26</figcaption>
+      </figure>
+      <div>
+        <p class="kicker" style="margin:0" data-rise data-i18n="probKicker">SECTION 01 — THE JAR ROUTINE</p>
+        <h2 data-rise data-i18n="probH2">The 20-litre habit every kitchen knows</h2>
+        <p class="sub" style="max-width:500px" data-rise data-i18n="probCopy">Order it. Wait for it. Lift it. Run out at the wrong time — and trust that this refill is as clean as the last one.</p>
       </div>
+    </div>
+    <div class="survey-big" data-rise>
+      <div class="survey-stats">
+        <div class="survey-head"><b data-i18n="survTitle">73 HOUSEHOLDS SURVEYED</b><span data-i18n="survN">n=73</span></div>
+        <div class="stat"><span class="stat-n" data-i18n="survRow1V">2 in 3</span><p data-i18n="survRow1">rely on 20L jar water</p></div>
+        <div class="stat"><span class="stat-n g" data-i18n="survRow2V">1 in 3</span><p data-i18n="survRow2">worry their water isn't safe</p></div>
+        <p class="cite" style="margin-top:6px" data-i18n="survCite">KORA CARE household survey, Pokhara, June–July 2026 (n=73)</p>
+      </div>
+      <div class="dots" id="dots" aria-hidden="true"></div>
     </div>
   </div>
 </section>
 
-<!-- ================= 02 HOW IT WORKS ================= -->
+<!-- ================= 02 HOW IT WORKS — the real choice (3-way compare) ================= -->
 <section class="sec" id="how" data-screen-label="How it works" style="background:var(--card)">
   <div class="sec-in">
-    <div style="max-width:640px">
+    <div style="max-width:660px">
       <p class="kicker" style="margin:0" data-rise data-i18n="howKicker">SECTION 02 — HOW IT WORKS</p>
-      <h2 data-rise data-i18n="howH2">Water as a service, not a machine you buy</h2>
-      <p class="sub" style="max-width:640px" data-rise data-i18n="howSub">No jars to order. No boiling. No filter guesswork. The purifier stays ours to look after — you subscribe to clean water.</p>
+      <h2 data-rise data-i18n="howH2">You don't buy water. You don't buy a machine.</h2>
+      <p class="sub" style="max-width:660px" data-rise data-i18n="howSub">The real choice a Pokhara kitchen makes. Look across — only one of them ever stops being your job.</p>
     </div>
-    <div class="grid3" style="margin-top:36px">
-      <div class="card" data-rise style="background:var(--paper)">
-        <div class="card-tag"><b data-i18n="s1k">STEP 01</b><span data-i18n="s1t">DAY ONE</span></div>
-        <h3 data-i18n="s1h">We install</h3>
-        <p data-i18n="s1b">Fitted in your kitchen by our local team. Your water is tested in front of you — before and after.</p>
+    <div class="cmp" data-rise>
+      <div class="cmp-col">
+        <div class="cmp-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8M9 3v3.2L6.5 9.2A3 3 0 0 0 6 11v7a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3v-7a3 3 0 0 0-.5-1.8L15 6.2V3"/><path d="M6.6 13h10.8"/></svg><span data-i18n="cmpJar">The 20-litre jar</span></div>
+        <div class="cmp-row"><span class="cmp-lab" data-i18n="cmpL1">What you pay</span><span class="cmp-val" data-i18n="cmpJ1">Again, every refill</span></div>
+        <div class="cmp-row"><span class="cmp-lab" data-i18n="cmpL2">The work</span><span class="cmp-val" data-i18n="cmpJ2">Carry 20 kg, every time</span></div>
+        <div class="cmp-row"><span class="cmp-lab" data-i18n="cmpL3">Knowing it's clean</span><span class="cmp-val" data-i18n="cmpJ3">Trust it's like last time</span></div>
+        <div class="cmp-row"><span class="cmp-lab" data-i18n="cmpL4">Over time</span><span class="cmp-val" data-i18n="cmpJ4">Reorder, run out, wait</span></div>
+        <div class="cmp-row"><span class="cmp-lab" data-i18n="cmpL5">You end up with</span><span class="cmp-val" data-i18n="cmpJ5">A cost that never ends</span></div>
       </div>
-      <div class="card" data-rise style="background:var(--paper)">
-        <div class="card-tag"><b data-i18n="s2k">STEP 02</b><span data-i18n="s2t">EVERY DAY</span></div>
-        <h3 data-i18n="s2h">You drink</h3>
-        <p data-i18n="s2b">Unlimited purified water from your own tap, every day. The machine stays under our care.</p>
+      <div class="cmp-col">
+        <div class="cmp-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 20 7v10l-8 4-8-4V7Z"/><path d="M12 3v18M4 7l8 4 8-4"/></svg><span data-i18n="cmpBuy">A purifier you buy</span></div>
+        <div class="cmp-row"><span class="cmp-lab" data-i18n="cmpL1">What you pay</span><span class="cmp-val" data-i18n="cmpB1">One large payment upfront</span></div>
+        <div class="cmp-row"><span class="cmp-lab" data-i18n="cmpL2">The work</span><span class="cmp-val" data-i18n="cmpB2">Install &amp; maintain it</span></div>
+        <div class="cmp-row"><span class="cmp-lab" data-i18n="cmpL3">Knowing it's clean</span><span class="cmp-val" data-i18n="cmpB3">Guess when the filter's spent</span></div>
+        <div class="cmp-row"><span class="cmp-lab" data-i18n="cmpL4">Over time</span><span class="cmp-val" data-i18n="cmpB4">Breaks = your repair bill</span></div>
+        <div class="cmp-row"><span class="cmp-lab" data-i18n="cmpL5">You end up with</span><span class="cmp-val" data-i18n="cmpB5">A machine to look after</span></div>
       </div>
-      <div class="card" data-rise style="background:var(--paper)">
-        <div class="card-tag"><b data-i18n="s3k">STEP 03</b><span data-i18n="s3t">EVERY MONTH</span></div>
-        <h3 data-i18n="s3h">We care</h3>
-        <p data-i18n="s3b">Every month we visit: filters replaced on schedule, water re-tested, everything kept right. That's the CARE in KORA CARE.</p>
+      <div class="cmp-col cmp-kora">
+        <div class="cmp-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h6v3H7a3 3 0 0 0-3 3"/><path d="M9 8.5h6a3 3 0 0 1 3 3v1"/><path d="M9.5 15.5l1.6 1.6 3-3.2"/></svg><span data-i18n="cmpKora">KORA</span><span class="cmp-tag" data-i18n="cmpTag">A SERVICE</span></div>
+        <div class="cmp-row"><span class="cmp-lab" data-i18n="cmpL1">What you pay</span><span class="cmp-val" data-i18n="cmpK1">One monthly subscription</span></div>
+        <div class="cmp-row"><span class="cmp-lab" data-i18n="cmpL2">The work</span><span class="cmp-val" data-i18n="cmpK2">We fit it — you do nothing</span></div>
+        <div class="cmp-row"><span class="cmp-lab" data-i18n="cmpL3">Knowing it's clean</span><span class="cmp-val" data-i18n="cmpK3">Tested at your tap, in front of you</span></div>
+        <div class="cmp-row"><span class="cmp-lab" data-i18n="cmpL4">Over time</span><span class="cmp-val" data-i18n="cmpK4">Serviced monthly, always ours</span></div>
+        <div class="cmp-row"><span class="cmp-lab" data-i18n="cmpL5">You end up with</span><span class="cmp-val" data-i18n="cmpK5">The result: clean water, kept clean</span></div>
       </div>
     </div>
+    <p class="cmp-payoff" data-rise><span data-i18n="cmpPay">You just buy the </span><b data-i18n="cmpPayB">result.</b></p>
   </div>
 </section>
 
@@ -870,8 +918,14 @@ details[open] .faq-x{transform:rotate(45deg)}
     survTitle:'७३ घरधुरी सर्वेक्षण', survN:'n=७३',
     survRow1:'२०L जारको पानीमा निर्भर', survRow1V:'३ मध्ये २', survRow2:'पानी सुरक्षित छैन भन्ने चिन्ता', survRow2V:'३ मध्ये १',
     survCite:'कोरा केयर घरधुरी सर्वेक्षण, पोखरा, जुन–जुलाई २०२६ (n=७३)',
-    howKicker:'खण्ड ०२ — कसरी काम गर्छ', howH2:'पानी एक सेवा — किन्ने मेसिन होइन',
-    howSub:'जार अर्डर गर्नु पर्दैन। उमाल्नु पर्दैन। फिल्टरको अनुमान पर्दैन। मेसिनको हेरचाह हाम्रो जिम्मा — तपाईं सफा पानीको सदस्यता मात्र लिनुहुन्छ।',
+    howKicker:'खण्ड ०२ — कसरी काम गर्छ', howH2:'न पानी किन्नुहुन्छ, न मेसिन।',
+    howSub:'पोखराको भान्साले गर्ने साँचो छनोट। हेर्नुहोस् — यीमध्ये एउटाले मात्र तपाईंको काम हुन छाड्छ।',
+    cmpJar:'२० लिटरको जार', cmpBuy:'किन्ने प्युरिफायर', cmpKora:'कोरा', cmpTag:'सेवा',
+    cmpL1:'के तिर्नुहुन्छ', cmpL2:'कति झन्झट', cmpL3:'सफा छ भन्ने कसरी थाहा', cmpL4:'समयक्रममा', cmpL5:'अन्ततः के पाउनुहुन्छ',
+    cmpJ1:'हरेक रिफिलमा फेरि', cmpJ2:'हरेकपटक २० किलो बोक्नु', cmpJ3:'अघिल्लो जत्तिकै भन्ने भरोसा', cmpJ4:'फेरि अर्डर, सकिन्छ, पर्खनु', cmpJ5:'कहिल्यै नसकिने खर्च',
+    cmpB1:'एकैचोटि ठूलो रकम', cmpB2:'आफैं जडान र मर्मत', cmpB3:'फिल्टर कहिले सकियो अनुमान', cmpB4:'बिग्रे = तपाईंकै मर्मत खर्च', cmpB5:'हेरचाह गर्नुपर्ने मेसिन',
+    cmpK1:'एउटै मासिक सदस्यता', cmpK2:'हामी जडान गर्छौं — तपाईं केही गर्नु पर्दैन', cmpK3:'तपाईंकै धारामा, अगाडि जाँचिन्छ', cmpK4:'हरेक महिना सेवा, सधैं हाम्रो', cmpK5:'नतिजा: सफा पानी, सफा नै राखिन्छ',
+    cmpPay:'तपाईं केवल किन्नुहुन्छ ', cmpPayB:'नतिजा।',
     s1k:'चरण ०१', s1t:'पहिलो दिन', s1h:'हामी जडान गर्छौं', s1b:'हाम्रो स्थानीय टोलीले तपाईंको भान्सामा जडान गर्छ। जडान अघि र पछि — तपाईंकै अगाडि पानी जाँचिन्छ।',
     s2k:'चरण ०२', s2t:'हरेक दिन', s2h:'तपाईं पिउनुहोस्', s2b:'आफ्नै धाराबाट असीमित शुद्ध पानी, हरेक दिन। मेसिन हाम्रै हेरचाहमा रहन्छ।',
     s3k:'चरण ०३', s3t:'हरेक महिना', s3h:'हामी हेरचाह गर्छौं', s3b:'हरेक महिना हामी आउँछौं: तालिकाअनुसार फिल्टर फेरिन्छ, पानी पुनः जाँचिन्छ, सबै दुरुस्त राखिन्छ। कोरा केयरको CARE यही हो।',
