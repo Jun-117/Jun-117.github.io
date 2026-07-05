@@ -337,6 +337,11 @@ details[open] .faq-x{transform:rotate(45deg)}
 .field textarea{resize:vertical;min-height:74px;line-height:1.5}
 .demo-form .btn-lg{width:100%;margin-top:6px}
 .form-micro{font-family:var(--mono);font-size:11px;color:#5f83a0;text-align:center;margin:12px 0 0;letter-spacing:0.04em}
+.privacy-note{margin:12px auto 0;border-top:1px dotted #1d3a58;padding-top:12px}
+.privacy-note summary{font-family:var(--mono);font-size:11px;letter-spacing:0.05em;color:#7d99b0;cursor:pointer;list-style:none;text-align:center;text-decoration:underline;text-underline-offset:3px}
+.privacy-note summary::-webkit-details-marker{display:none}
+.privacy-note summary:hover{color:#dcebf5}
+.privacy-note p{font-size:12.5px;line-height:1.6;color:#9dbcd2;margin:10px auto 0;text-align:center;max-width:400px}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .form-status{margin:16px 0 0;font-size:14.5px;line-height:1.55;text-align:center;padding:14px 16px;border-radius:10px}
 .form-status.err{color:#ffd9c2;background:rgba(232,132,60,0.12);border:1px solid #6b5330}
@@ -785,6 +790,10 @@ details[open] .faq-x{transform:rotate(45deg)}
 
       <button type="submit" class="btn btn-lg" data-i18n="formBtn">Request my free demo</button>
       <p class="form-micro" data-i18n="formMicro">No obligation. We'll only message you about your demo.</p>
+      <details class="privacy-note">
+        <summary data-i18n="privacyQ">How we handle your details</summary>
+        <p data-i18n="privacyA">We use your name and contact only to arrange your free demo — never sold, never shared beyond that. Your details reach us securely through FormSubmit. Ask us to delete them anytime at contact@koracarenepal.com.</p>
+      </details>
       <p class="form-status err" id="form-status" role="alert" hidden></p>
     </form>
 
@@ -969,6 +978,8 @@ details[open] .faq-x{transform:rotate(45deg)}
     phName:'जस्तै: सीता गुरुङ', phArea:'वडा / टोल, पोखरा', phMsg:'भन्न चाहेको केही कुरा',
     formBtn:'निःशुल्क डेमो अनुरोध गर्नुहोस्',
     formMicro:'कुनै बाध्यता छैन। हामी डेमोबारे मात्र सम्पर्क गर्छौं।',
+    privacyQ:'तपाईंको विवरण कसरी प्रयोग हुन्छ',
+    privacyA:'तपाईंको नाम र सम्पर्क केवल निःशुल्क डेमो मिलाउन प्रयोग हुन्छ — बेचिँदैन, अन्त कतै साझा गरिँदैन। तपाईंको विवरण FormSubmit मार्फत सुरक्षित रूपमा हामीकहाँ आउँछ। जुनसुकै बेला contact@koracarenepal.com मा लेखेर मेटाउन अनुरोध गर्न सक्नुहुन्छ।',
     sentH:'प्राप्त भयो — धन्यवाद।',
     sentP:'हामी एक दिनभित्र सम्पर्क गरी निःशुल्क डेमो मिलाउँछौं। कुनै बाध्यता छैन।',
     altToggle:'सिधै हामीलाई लेख्न चाहनुहुन्छ?',
