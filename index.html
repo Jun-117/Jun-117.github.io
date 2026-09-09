@@ -581,10 +581,10 @@ details[open] .faq-x{transform:rotate(45deg)}
     </div>
     <div class="survey-big" data-rise>
       <div class="survey-stats">
-        <div class="survey-head"><b data-i18n="survTitle">73 HOUSEHOLDS SURVEYED</b><span data-i18n="survN">n=73</span></div>
+        <div class="survey-head"><b data-i18n="survTitle">75 HOUSEHOLDS SURVEYED</b><span data-i18n="survN">n=75</span></div>
         <div class="stat"><span class="stat-n" data-i18n="survRow1V">2 in 3</span><p data-i18n="survRow1">rely on 20L jar water</p></div>
         <div class="stat"><span class="stat-n g" data-i18n="survRow2V">1 in 3</span><p data-i18n="survRow2">worry their water isn't safe</p></div>
-        <p class="cite" style="margin-top:6px" data-i18n="survCite">KORA CARE household survey, Pokhara, June–July 2026 (n=73)</p>
+        <p class="cite" style="margin-top:6px" data-i18n="survCite">KORA CARE household survey, Pokhara, June–July 2026 (n=75)</p>
       </div>
       <div class="dots" id="dots" aria-hidden="true"></div>
     </div>
@@ -871,13 +871,13 @@ details[open] .faq-x{transform:rotate(45deg)}
   var root = document.documentElement;
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- survey dots (50 of 73 filled = jar reliance) ---------- */
+  /* ---------- survey dots (52 of 75 filled = jar reliance 69%) ---------- */
   var dots = document.getElementById('dots');
   if (dots) {
     var frag = document.createDocumentFragment();
-    for (var i = 0; i < 73; i++) {
+    for (var i = 0; i < 75; i++) {
       var d = document.createElement('i');
-      if (i >= 50) d.className = 'off';
+      if (i >= 52) d.className = 'off';
       d.style.transitionDelay = Math.min(i * 12, 900) + 'ms';
       frag.appendChild(d);
     }
@@ -924,9 +924,9 @@ details[open] .faq-x{transform:rotate(45deg)}
     probKicker:'खण्ड ०१ — जारको चक्र', probH2:'हरेक भान्साले चिनेको २० लिटरको बानी',
     probCopy:'अर्डर गर्नुहोस्। पर्खनुहोस्। बोक्नुहोस्। चाहिएकै बेला सकिन्छ — अनि यो रिफिल अघिल्लो जत्तिकै सफा छ भनेर विश्वास मात्र गर्नुपर्छ।',
     jarPh:'jar.jpg — २० लिटर जार, पोखराको भान्सा', jarCap:'स्थलगत अनुसन्धान · पोखरा · २०२५–२६',
-    survTitle:'७३ घरधुरी सर्वेक्षण', survN:'n=७३',
+    survTitle:'७५ घरधुरी सर्वेक्षण', survN:'n=७५',
     survRow1:'२०L जारको पानीमा निर्भर', survRow1V:'३ मध्ये २', survRow2:'पानी सुरक्षित छैन भन्ने चिन्ता', survRow2V:'३ मध्ये १',
-    survCite:'कोरा केयर घरधुरी सर्वेक्षण, पोखरा, जुन–जुलाई २०२६ (n=७३)',
+    survCite:'कोरा केयर घरधुरी सर्वेक्षण, पोखरा, जुन–जुलाई २०२६ (n=७५)',
     howKicker:'खण्ड ०२ — कसरी काम गर्छ', howH2:'न पानी किन्नुहुन्छ, न मेसिन।',
     howSub:'पोखराको भान्साले गर्ने साँचो छनोट। हेर्नुहोस् — यीमध्ये एउटाले मात्र तपाईंको काम हुन छाड्छ।',
     cmpJar:'२० लिटरको जार', cmpBuy:'किन्ने प्युरिफायर', cmpKora:'कोरा', cmpTag:'सेवा',
