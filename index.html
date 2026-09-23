@@ -335,25 +335,29 @@ html.js:not(.static) .pin-in{padding:24px}
 .pin .sub{color:#9dbcd2;max-width:440px}
 .uv-badge{margin-top:22px;display:inline-block;font-family:var(--mono);font-size:12px;color:var(--gold-soft);border:1px solid #6b5330;border-radius:6px;padding:8px 13px;letter-spacing:0.08em;font-weight:600}
 .stages{display:flex;flex-direction:column;list-style:none;margin:0;padding:0}
-.stage{display:flex;gap:16px;align-items:stretch;opacity:1;transition:opacity .45s var(--ease)}
-html.js:not(.static) .stage{opacity:.34}
-html.js:not(.static) .stage.on{opacity:1}
+.stage{display:flex;gap:16px;align-items:stretch;opacity:1}
+html.js:not(.static) .stage{opacity:calc(.34 + .66 * var(--q,0))}   /* v6.7.3 — brightens with the scroll itself (the script sets --q, 0..1) */
 .stage-rail{display:flex;flex-direction:column;align-items:center;width:20px;flex:none}
-.stage-dot{width:14px;height:14px;border-radius:50%;background:#1d3a58;margin-top:15px;transition:background .45s var(--ease),box-shadow .45s var(--ease),transform .45s var(--ease)}
-.stage-line{flex:1;width:2px;background:#16334f;transition:background .45s var(--ease)}
+.stage-dot{position:relative;width:14px;height:14px;border-radius:50%;background:#1d3a58;margin-top:15px}
+.stage-line{position:relative;flex:1;width:2px;background:#16334f}
 .stage-body{flex:1;padding:11px 0 15px;border-bottom:1px dotted #26476b;display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
-.stage-name{font-family:var(--mono);font-size:14.5px;font-weight:600;color:#7d99b0;transition:color .45s var(--ease)}
+.stage-name{font-family:var(--mono);font-size:14.5px;font-weight:600;color:#7d99b0}
 .stage-name b{color:#4aa8e8;font-weight:700}
 .stage-desc{font-family:var(--mono);font-size:12px;color:#7d99b0}
-.stage.on .stage-dot,html.js.static .stage .stage-dot,html.no-js .stage .stage-dot{background:#4aa8e8}
-.stage.on .stage-line,html.js.static .stage .stage-line,html.no-js .stage .stage-line{background:#2a5378}
-.stage.on .stage-name,html.js.static .stage .stage-name,html.no-js .stage .stage-name{color:#fff}
-.stage.uv.on .stage-dot,html.js.static .stage.uv .stage-dot,html.no-js .stage.uv .stage-dot{background:var(--gold);box-shadow:0 0 18px rgba(232,132,60,0.65);transform:scale(1.15)}
+html.js.static .stage .stage-dot,html.no-js .stage .stage-dot{background:#4aa8e8}
+html.js.static .stage .stage-line,html.no-js .stage .stage-line{background:#2a5378}
+html.js.static .stage .stage-name,html.no-js .stage .stage-name{color:#fff}
+html.js.static .stage.uv .stage-dot,html.no-js .stage.uv .stage-dot{background:var(--gold);box-shadow:0 0 18px rgba(232,132,60,0.65);transform:scale(1.15)}
+/* v6.7.3 — scroll-driven stage light: the lit colour fades in over the dark one, the line fills downward, the text brightens (all from --q) */
+html.js:not(.static) .stage-dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:#4aa8e8;opacity:var(--q,0)}
+html.js:not(.static) .stage.uv .stage-dot::after{background:var(--gold);box-shadow:0 0 18px rgba(232,132,60,0.65)}
+html.js:not(.static) .stage.uv .stage-dot{transform:scale(calc(1 + .15 * var(--q,0)))}
+html.js:not(.static) .stage-line::after{content:"";position:absolute;inset:0;background:#2a5378;transform-origin:top;transform:scaleY(var(--q,0))}
+html.js:not(.static) .stage-name{color:rgb(calc(125 + 130 * var(--q,0)), calc(153 + 102 * var(--q,0)), calc(176 + 79 * var(--q,0)))}
 .stage-count{font-family:var(--mono);font-size:12px;color:#7d99b0;margin:16px 0 0;letter-spacing:0.08em}
 .stage-count b{color:var(--gold-soft)}
-.safe{display:flex;gap:16px;align-items:center;margin-top:6px;opacity:1;transition:opacity .5s var(--ease)}
-html.js:not(.static) .safe{opacity:0}
-html.js:not(.static) .safe.on{opacity:1}
+.safe{display:flex;gap:16px;align-items:center;margin-top:6px;opacity:1}
+html.js:not(.static) .safe{opacity:var(--s,0)}   /* v6.7.3 — "…straight to your glass." fades in as the fifth stage completes */
 .safe-drop{width:20px;display:flex;justify-content:center;flex:none}
 .safe-drop i{width:8px;height:12px;border-radius:0 0 6px 6px;background:var(--sky)}
 .safe span{font-family:var(--disp);font-weight:700;font-style:italic;font-size:19px;color:var(--sky);padding-top:8px}
@@ -2537,7 +2541,7 @@ if(/[?&]slots=0/.test(location.search))d.classList.add('no-slots');})(document.d
   var active = new Set();
   var gate = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
-      if (e.isIntersecting) { active.add(e.target); e.target.style.willChange = 'opacity,transform'; reveal(e.target); }
+      if (e.isIntersecting) { active.add(e.target); e.target.style.willChange = 'opacity,transform'; reveal(e.target, true); }   /* v6.7.3 — enters the margin (still off screen): set exactly, then glide */
       else { active.delete(e.target); e.target.style.willChange = ''; reveal(e.target, true); }   /* v6.7.2 — out of range: set exactly, so it never glides in from an old state */
     });
     kick();
@@ -2555,8 +2559,9 @@ if(/[?&]slots=0/.test(location.search))d.classList.add('no-slots');})(document.d
 
   var unpinned = window.matchMedia('(max-width: 1023px)');
   var pinOn = false;
+  var pinSnap = false;   /* v6.7.3 — set when the block comes near the screen: the next frame places every stage exactly, then glides (a jump that never passes through the block — tap-to-top, a menu link — would otherwise leave old values) */
   var pinGate = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) { pinOn = e.isIntersecting; });
+    entries.forEach(function (e) { var was = pinOn; pinOn = e.isIntersecting; if (pinOn && !was) pinSnap = true; });
     if (pinwrap) pinwrap.classList.toggle('inview', pinOn);   /* the stage drawings only animate while the block is on screen */
   }, { rootMargin: '10% 0px 10% 0px', threshold: 0 });
   if (pinwrap) pinGate.observe(pinwrap);
@@ -2618,24 +2623,34 @@ if(/[?&]slots=0/.test(location.search))d.classList.add('no-slots');})(document.d
       ridge.style.transform = 'translateY(' + (y * 0.18) + 'px)';
     }
 
-    /* pinned stages — scroll IS the water moving through the unit */
+    /* pinned stages — scroll IS the water moving through the unit.
+       v6.7.3 (2026-09-23, Jun) — continuous: each stage brightens with the scroll itself and dims again on the way back up,
+       gliding like everything else. q = how lit a stage is (0..1); the CSS turns --q into its opacity, dot, line and text colour. */
     if (pinOn && pinwrap) {
-      var lit;
+      var qs = [];
       if (unpinned.matches) {
-        /* single-column layout: no pin — a stage lights once it is ~3/4 up the screen */
-        lit = 0;
-        for (var si = 0; si < stageEls.length; si++) { if (stageEls[si].getBoundingClientRect().top < vh * 0.78) lit = si + 1; }
+        /* single-column layout: no pin — a stage brightens while its top travels from 90% to 70% of the screen height */
+        for (var si = 0; si < stageEls.length; si++) qs.push(cl((vh * 0.9 - stageEls[si].getBoundingClientRect().top) / (vh * 0.2), 0, 1));
       } else {
         var w = pinwrap.getBoundingClientRect();
         var span = w.height - vh;
         var prog = span > 0 ? cl(-w.top / span, 0, 1) : 1;
-        lit = Math.round(prog * 5);
+        for (var sj = 0; sj < stageEls.length; sj++) qs.push(cl(prog * 5 - sj, 0, 1));   /* stage 1 over the first fifth of the pinned scroll, stage 5 over the last */
       }
+      if (pinSnap) { pinSnap = false; lastLit = -1; stageEls.forEach(function (st, k) { st._gq = qs[k]; }); if (safeEl) safeEl._gv = undefined; }
+      var litSum = 0;
+      stageEls.forEach(function (st, k) {
+        var q = glide(st, '_gq', qs[k]);
+        litSum += q;
+        var qr = Math.round(q * 1000) / 1000;
+        if (st._q !== qr) { st._q = qr; st.style.setProperty('--q', qr); }
+        st.classList.toggle('on', q >= 0.5);   /* the little cross-section inside starts moving once its stage is half lit */
+      });
+      if (safeEl) safeEl.style.setProperty('--s', Math.round(glide(safeEl, '_gv', cl((litSum - 4.5) * 2, 0, 1)) * 1000) / 1000);
+      var lit = qs.reduce(function (n, v, k) { return n + (stageEls[k]._gq >= 0.9 ? 1 : 0); }, 0);   /* stages at least 90% lit — the same position reads the same both ways, and the end of the block reads 5 */
       if (lit !== lastLit) {
         lastLit = lit;
-        stageEls.forEach(function (s, i) { s.classList.toggle('on', i < lit); });
         if (stageCount) stageCount.innerHTML = '<b>' + (lang === 'ne' ? ['०','१','२','३','४','५'][lit] : lit) + '</b>' + (lang === 'ne' ? NE.stageOf : ' / 5 stages');
-        if (safeEl) safeEl.classList.toggle('on', lit >= 5);
       }
     }
 
