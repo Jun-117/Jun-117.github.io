@@ -2506,10 +2506,26 @@ if(/[?&]slots=0/.test(location.search))d.classList.add('no-slots');})(document.d
     if (p < 0.85) return 30 + 8 * (p - 0.7) / 0.15;
     return 38;
   }
+  /* v6.7.2 (2026-09-23, Jun: "more natural") — nothing scroll-driven snaps to the scroll position any more; it glides there.
+     A mouse-wheel notch or an uneven phone scroll no longer shows as a jump, and when you stop, the motion settles softly (about 0.3 s).
+     Time-based (TAU), so 60 Hz and 120 Hz screens feel the same. Each value keeps its own glide state (key), so one element can be
+     both a rising block and a drawing without the two fighting. */
+  var TAU = 140;                 /* ms — how closely the motion follows the scroll: smaller = tighter, larger = floatier (≈0.4 s to land) */
+  var glideK = 1;                /* per-frame blend, set from the real frame time; 1 = snap (only the very first frame) */
+  var unsettled = 0;             /* how many values are still gliding this frame — keeps the loop awake until they land */
+  function glide(el, key, target) {
+    var v = el[key];
+    if (v === undefined || glideK >= 1) { el[key] = target; return target; }
+    v += (target - v) * glideK;
+    if (Math.abs(target - v) < 0.0015) v = target; else unsettled++;
+    el[key] = v;
+    return v;
+  }
+  function sstep(p) { return p * p * (3 - 2 * p); }   /* starts gently, ends gently */
   function scrubAll() {
-    var ps = scrubEls.map(function (el) { return cl((vh * 0.92 - el.getBoundingClientRect().top) / (vh * 0.45), 0, 1); });   /* read every position first, then write */
+    var ts = scrubEls.map(function (el) { return cl((vh * 0.92 - el.getBoundingClientRect().top) / (vh * 0.45), 0, 1); });   /* read every position first, then write */
     scrubEls.forEach(function (el, k) {
-      var p = Math.round(ps[k] * 1000) / 1000;
+      var p = Math.round(sstep(glide(el, '_gs', ts[k])) * 1000) / 1000;
       if (el._p === p) return;   /* unchanged = no style work (most of the page sits at 0 or 1) */
       el._p = p;
       el.style.setProperty('--p', p);
@@ -2522,7 +2538,7 @@ if(/[?&]slots=0/.test(location.search))d.classList.add('no-slots');})(document.d
   var gate = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (e.isIntersecting) { active.add(e.target); e.target.style.willChange = 'opacity,transform'; reveal(e.target); }
-      else { active.delete(e.target); e.target.style.willChange = ''; }
+      else { active.delete(e.target); e.target.style.willChange = ''; reveal(e.target, true); }   /* v6.7.2 — out of range: set exactly, so it never glides in from an old state */
     });
     kick();
   }, { rootMargin: '30% 0px 30% 0px', threshold: 0 });
@@ -2570,23 +2586,31 @@ if(/[?&]slots=0/.test(location.search))d.classList.add('no-slots');})(document.d
   var ticker = document.getElementById('ticker');
   function cl(v, a, b) { return v < a ? a : v > b ? b : v; }
   function eo(p) { return 1 - Math.pow(1 - p, 3); }
-  function reveal(el) {
+  function reveal(el, snap) {
     var r = el.getBoundingClientRect();
     /* tight window: fully revealed once ~1/3 up the screen — no lingering half-faded rest states */
-    var p = eo(cl((vh - r.top) / (vh * 0.35), 0, 1));
+    var t = cl((vh - r.top) / (vh * 0.35), 0, 1);
+    var p = eo(snap ? (el._gr = t) : glide(el, '_gr', t));   /* v6.7.2 — glides to its place instead of snapping */
     /* v6.7 (2026-09-23, Jun) — both ways again: scroll back up and a block sinks and fades as it drops into the lower third of the screen,
        scroll down and it rises again. (v6.4 had locked it: once it is up it stays up.) */
     el.style.opacity = p;
     el.style.transform = 'translateY(' + ((1 - p) * 20) + 'px)';
   }
 
-  function frame() {
+  var lastT = 0, booted = false;
+  function frame(now) {
+    now = now || (window.performance ? performance.now() : Date.now());
+    var dt = lastT ? Math.min(64, now - lastT) : 16.7;
+    lastT = now;
+    glideK = booted ? 1 - Math.exp(-dt / TAU) : 1;   /* v6.7.2 — the very first frame snaps; after that everything glides */
+    booted = true;
+    unsettled = 0;
     var y = window.scrollY;
     vel += (Math.abs(y - lastY) - vel) * 0.12;
     lastY = y;
 
     /* scrub reveals — element follows your finger into place */
-    active.forEach(reveal);
+    active.forEach(function (el) { reveal(el); });   /* (not forEach(reveal): Set.forEach passes a 2nd argument, which would mean "snap") */
     scrubAll();   /* v6.7.1 — drawings, bars, stamp and dots follow the scroll position */
 
     /* hero ridge parallax — the mountains move slower than you */
@@ -2620,12 +2644,12 @@ if(/[?&]slots=0/.test(location.search))d.classList.add('no-slots');})(document.d
       var sr0 = stagesEl.getBoundingClientRect(), pd;
       if (unpinned.matches) pd = cl((vh * 0.78 - sr0.top) / sr0.height, 0, 1);
       else { var w0 = pinwrap.getBoundingClientRect(), sp0 = w0.height - vh; pd = sp0 > 0 ? cl(-w0.top / sp0, 0, 1) : 1; }
-      stageDrop.style.transform = 'translateY(' + (pd * Math.max(0, sr0.height - 34)) + 'px)';
+      stageDrop.style.transform = 'translateY(' + (glide(stageDrop, '_gd', pd) * Math.max(0, sr0.height - 34)) + 'px)';
     }
     if (stepsOn && stepsEl) {
       var st0 = stepsEl.getBoundingClientRect();
       var spv = unpinned.matches ? cl((vh * 0.72 - st0.top) / st0.height, 0, 1) : cl((vh * 0.9 - st0.top) / (vh * 0.55), 0, 1);
-      stepsEl.style.setProperty('--sp', spv.toFixed(3));
+      stepsEl.style.setProperty('--sp', glide(stepsEl, '_gp', spv).toFixed(3));
     }
 
     /* ticker breathes with your scroll speed */
@@ -2639,8 +2663,8 @@ if(/[?&]slots=0/.test(location.search))d.classList.add('no-slots');})(document.d
       railDrop.style.transform = 'translateY(' + (pr * railH) + 'px)';
     }
 
-    if (Date.now() - lastMove < 450) requestAnimationFrame(frame);
-    else running = false;
+    if (unsettled > 0 || Date.now() - lastMove < 450) requestAnimationFrame(frame);   /* v6.7.2 — stay awake until every gliding value has landed */
+    else { running = false; lastT = 0; }
   }
   kick();
 })();
