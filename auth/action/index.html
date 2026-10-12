@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>KORA Field — 메일 링크 확인</title>
+<!-- Firebase email link check (2026-10-13). Every KORA Field account email link opens here first (Identity Platform callbackUri).
+     The 2-step "remove" link asks twice; all other links go straight on to Firebase's own page. Logic + notes = a.js.
+     Push: python3 -I web/_qa/deploy_auth_action.py --go · Nepali lines = 🔴 Tara review. -->
+<style>
+  :root { --ink:#14304f; --navy:#0b2038; --green:#107c3f; --red:#b42318; --bg:#f3f6f8; --card:#ffffff; --muted:#5b6b7a; --line:#d8e0e7; }
+  * { box-sizing:border-box }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans","Noto Sans KR","Noto Sans Devanagari",sans-serif; font-size:17px; line-height:1.55; padding:20px 16px 40px; }
+  .wrap { max-width:560px; margin:0 auto; }
+  .brand { font-weight:800; font-size:24px; color:var(--navy); letter-spacing:.01em; }
+  .brand small { display:block; font-weight:400; font-size:14px; color:var(--muted); margin-top:2px; }
+  .card { background:var(--card); border-radius:16px; padding:20px 18px; margin-top:16px; box-shadow:0 2px 10px rgba(11,32,56,.08); }
+  h1 { font-size:24px; line-height:1.25; color:var(--navy); margin:0 0 12px; }
+  .lang { border-top:1px solid var(--line); padding-top:10px; margin-top:10px; }
+  .lang:first-of-type { border-top:0; padding-top:0; margin-top:0; }
+  p { margin:0 0 8px; }
+  .btn { display:block; width:100%; border-radius:12px; padding:14px 16px; font-size:17px; font-weight:700; line-height:1.35; text-align:center; cursor:pointer; margin-top:12px; font-family:inherit; }
+  .keep { background:var(--green); color:#fff; border:0; }
+  .off { background:#fff; color:var(--red); border:1.5px solid var(--red); font-weight:600; font-size:15px; }
+  .off.armed { background:var(--red); color:#fff; }
+  .note { color:var(--red); font-size:15px; margin-top:8px; }
+  .muted { color:var(--muted); font-size:15px; }
+  a { color:var(--green); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">KORA Field<small>KORA CARE · Pokhara</small></div>
+
+  <div class="card" id="vAsk" hidden>
+    <h1>🔐 2단계 로그인을 끌까요?<br><span class="muted">Turn off 2-step sign-in? · दुई-चरण साइन इन बन्द गर्ने?</span></h1>
+    <div class="lang"><p>이 링크는 방금 켠 2단계 로그인을 <b>끄는</b> 링크예요. <b>본인이 켰다면</b> 아무것도 끄지 말고 이 탭을 닫으세요.</p></div>
+    <div class="lang"><p>This link turns <b>off</b> the 2-step sign-in that was just added to your KORA Field account. <b>If you added it yourself</b>, keep it on and close this tab.</p></div>
+    <div class="lang"><p>यो लिंकले भर्खरै थपिएको दुई-चरण साइन इन <b>बन्द</b> गर्छ। <b>तपाईं आफैंले थप्नुभएको हो भने</b> चालु राख्नुहोस् र यो ट्याब बन्द गर्नुहोस्।</p></div>
+    <button class="btn keep" id="keep" type="button">✅ 제가 켰어요 — 그대로 둘게요<br><span style="font-weight:400;font-size:15px">I added it — keep it on · मैले नै थपेको हुँ — चालु राख्नुहोस्</span></button>
+    <button class="btn off" id="off" type="button">제가 켠 게 아니에요 — 2단계 끄기<br><span style="font-weight:400;font-size:14px">I did not add it — turn it off · मैले थपेको होइन — बन्द गर्नुहोस्</span></button>
+    <p class="note" id="offNote" hidden>한 번 더 누르면 꺼져요. 끈 뒤엔 바로 비밀번호를 바꾸세요.<br>Press once more to turn it off — then change your password right away.<br>फेरि एक पटक थिच्दा बन्द हुन्छ — त्यसपछि तुरुन्तै पासवर्ड बदल्नुहोस्।</p>
+  </div>
+
+  <div class="card" id="vKept" hidden>
+    <h1>✅ 그대로 켜져 있어요</h1>
+    <div class="lang"><p>2단계 로그인은 켜진 그대로예요. 이 탭을 닫으세요.</p></div>
+    <div class="lang"><p>Your 2-step sign-in stays on. You can close this tab.</p></div>
+    <div class="lang"><p>दुई-चरण साइन इन चालु नै छ। यो ट्याब बन्द गर्नुहोस्।</p></div>
+  </div>
+
+  <div class="card" id="vGo" hidden>
+    <p>넘어가는 중… · Opening… · खुल्दैछ…</p>
+    <p class="muted"><a id="goLink" href="#">안 넘어가면 누르세요 · Tap here if nothing happens</a></p>
+  </div>
+
+  <div class="card" id="vNone" hidden>
+    <p>이 페이지는 KORA Field 메일 속 링크용이에요.</p>
+    <p>This page is for links in KORA Field emails.</p>
+    <p class="muted"><a href="https://app.koracarenepal.com">app.koracarenepal.com</a></p>
+  </div>
+
+  <noscript><div class="card"><p>이 페이지는 자바스크립트가 켜진 브라우저에서 열어 주세요.</p><p>Please open this page in a browser with JavaScript on.</p></div></noscript>
+</div>
+<script src="a.js"></script>
+</body>
+</html>
