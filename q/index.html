@@ -31,6 +31,12 @@
   .note { margin-top:14px; font-size:14px; color:var(--muted); }
   .ne { font-size:16px; }
   [hidden] { display:none !important; }
+  /* 2026-10-18 (Gemini review 2 · D36 ① · Jun 「1로하고 차후에 2로」): three self-checks before a repair visit — line drawings now, real photos after the 50 units arrive (②) */
+  .self h2 { margin:0 0 4px; font-size:18px; color:var(--navy); } .self h2 small { display:block; font-weight:400; font-size:14px; color:var(--muted); }
+  .step { display:flex; gap:14px; align-items:flex-start; padding:14px 0; border-top:1px solid #e3e9ee; } .step:first-of-type { border-top:0; }
+  .step svg { flex:none; width:64px; height:64px; color:var(--navy); } .step .n { font-weight:700; color:var(--green); }
+  .step p { margin:2px 0 0; } .step .ne { color:var(--ink); } .step .en { font-size:14px; color:var(--muted); }
+  .btn.as { background:#c2410c; }
 </style>
 </head>
 <body>
@@ -49,6 +55,24 @@
       <div class="note">A KORA CARE home sent you this. Clean water at home for Rs 1,100 a month — write to us and we will come to show it.</div>
     </div>
   </div>
+
+  <!-- D36 ①: Nepali lines = Claude draft · NE 🔴 waiting for Tara's check · English under each -->
+  <div class="card self" id="self">
+    <h2>पानी आएन? पहिले यी ३ कुरा हेर्नुहोस्<small>No water? Check these 3 things first</small></h2>
+    <div class="step">
+      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 40h18M42 40h18"/><rect x="22" y="33" width="20" height="14" rx="3"/><path d="M32 33V21"/><path d="M22 17h20"/><path d="M47 22l7-5M52 25l6 0"/><path d="M34 52c0 2-1 4-2 4s-2-2-2-4 2-4 2-4 2 2 2 4z"/></svg>
+      <div><span class="n">1</span><p class="ne">मेसिनमा पानी आउने भल्भ खुला छ? ह्यान्डल पाइपसँगै सिधा हुनुपर्छ।</p><p class="en">Is the water valve to the purifier open? The handle should point along the pipe.</p></div>
+    </div>
+    <div class="step">
+      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="36" y="10" width="22" height="30" rx="4"/><path d="M44 20v6M50 20v6"/><path d="M6 54c10 0 12-14 22-14h4"/><rect x="28" y="34" width="10" height="12" rx="2"/><path d="M22 6l-3 8h6l-3 8"/></svg>
+      <div><span class="n">2</span><p class="ne">बिजुलीको तार सकेटमा राम्ररी छ र स्विच अन छ? बत्ती गएको त होइन?</p><p class="en">Is the power plug in the socket and the switch on? Is there a power cut?</p></div>
+    </div>
+    <div class="step">
+      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14h44a4 4 0 0 1 4 4v22a4 4 0 0 1-4 4H26l-10 9v-9h-6a4 4 0 0 1-4-4V18a4 4 0 0 1 4-4z"/><path d="M20 26h24M20 33h16"/></svg>
+      <div><span class="n">3</span><p class="ne">अझै भएन? तल थिच्नुहोस् — मेसिन नम्बर आफैं जान्छ, हामी आउँछौं।</p><p class="en">Still not working? Tap below — the device number goes in by itself and we come.</p></div>
+    </div>
+    <a class="btn as" id="wa2" href="https://wa.me/9779714612210"><span class="ic">🛠️</span><span>मर्मत चाहियो · Repair (A/S)<span class="sub">WhatsApp — the checks did not help</span></span></a>
+  </div>
 </div>
 <script>
   // ?d=KD-26-0001 (device sticker) · ?c=KC-XXXX (customer code) · ?ref=KC-XXXX (referral) — letters, digits, dash only; anything else is ignored
@@ -61,12 +85,15 @@
     document.getElementById('own').hidden = true; document.getElementById('refNote').hidden = false;
     document.getElementById('waSub').textContent = 'Ask us anything — we will know who sent you';
     text = 'Referred by ' + ref + ' - Namaste KORA CARE, ';
+    document.getElementById('self').hidden = true; // a referral is not a home with a unit yet
   } else {
     document.getElementById('code').textContent = code || 'KORA CARE';
     text = (code ? code + ' - ' : '') + 'Namaste KORA CARE, ';
   }
   // the code is the first words so the office can match the home (or the referrer) — plain text only (wa.me breaks emoji)
   document.getElementById('wa').href = 'https://wa.me/9779714612210?text=' + encodeURIComponent(text);
+  // D36: the repair button says it is a repair after the 3 checks — the code first as above (plain text)
+  document.getElementById('wa2').href = 'https://wa.me/9779714612210?text=' + encodeURIComponent((code ? code + ' - ' : '') + 'Repair: no water after the 3 checks - ');
 </script>
 </body>
 </html>
