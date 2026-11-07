@@ -537,11 +537,11 @@ details[open] .faq-x{transform:rotate(45deg)}
 .social-dock.open .dock-items .dock:nth-child(4){animation-delay:.15s}
 .social-dock.open .dock-items .dock:nth-child(5){animation-delay:.19s}
 /* v6.10 (2026-11-07 · Jun "공유에 주소복사 버튼도"): copy-the-link button — white so it reads apart from the navy + button below it */
-.dock.cp{position:relative;border:1px solid var(--line);background:#fff;padding:0;cursor:pointer;font:inherit}
-.dock.cp svg{fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.dock.cp{position:relative;border:none;background:var(--muted);padding:0;cursor:pointer;font:inherit}   /* v6.12: filled like the brand circles above it (Jun 「레이아웃 왜 다름」) */
+.dock.cp svg{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .dock.cp .ok{display:none}
-.dock.cp.done{border-color:#107c3f}
-.dock.cp.done .ok{display:block;stroke:#107c3f}
+.dock.cp.done{background:#107c3f}
+.dock.cp.done .ok{display:block;stroke:#fff}
 .dock.cp.done .ln{display:none}
 .dock-tip{position:absolute;right:calc(100% + 10px);top:50%;transform:translate(6px,-50%);white-space:nowrap;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.04em;background:var(--ink);color:#fff;border-radius:6px;padding:7px 10px;opacity:0;pointer-events:none;transition:opacity .25s var(--ease),transform .25s var(--ease)}
 .dock.cp.done .dock-tip{opacity:1;transform:translate(0,-50%)}
@@ -777,8 +777,7 @@ html.no-slots [data-slot]{display:none !important}
   .social-dock{transition:bottom .35s var(--ease)}
   .mbar-on .social-dock{bottom:calc(86px + env(safe-area-inset-bottom,0px))}
   .has-mbar .foot{padding-bottom:118px}
-  /* v6.11 D1 (2026-11-07 · 세션4 해부 · Jun 「다 진행해」): WhatsApp already sits in the join bar, the hero and the form — the + stack keeps Facebook, Instagram and copy-the-link */
-  .dock.wa{display:none !important}
+  /* v6.12 (2026-11-08 · Jun 「왓츠앱 … 어디감?」): D1 undone — the join bar hides near the hero and the form, so WhatsApp stays in the + stack too */
   /* v6.11 N1: the top bar slides away while you read down and comes back the moment you scroll up (it covered ~13% of a phone screen all the time) */
   .nav{transition:transform .35s var(--ease)}
   .nav.nav-hide{transform:translateY(-100%)}
@@ -2119,7 +2118,7 @@ if(/[?&]slots=0/.test(location.search))d.classList.add('no-slots');})(document.d
     <a href="mailto:contact@koracarenepal.com">contact@koracarenepal.com</a>
   </div>
   <!-- Legal identity. Optional extras if you want them public: company reg. no. and PAN/VAT no. -->
-  <div class="foot-legal"><span data-i18n="footLegal" data-en="KORA CARE is the service brand of Kora Care Private Limited (कोरा केयर प्राइभेट लिमिटेड) · Company Reg. No. 402718/83/84 · PAN/VAT 624719801 · Office of the Company Registrar, Nepal.">कोरा केयर (KORA CARE) कोरा केयर प्राइभेट लिमिटेडको सेवा ब्रान्ड हो · कम्पनी दर्ता नं. ४०२७१८/८३/८४ · PAN/VAT ६२४७१९८०१ · कम्पनी रजिष्ट्रारको कार्यालय, नेपाल।</span></div>
+  <div class="foot-legal"><span data-i18n="footLegal" data-en="KORA CARE is the service brand of Kora Care Private Limited (कोरा केयर प्राइभेट लिमिटेड) · Pokhara, Nepal.">कोरा केयर (KORA CARE) कोरा केयर प्राइभेट लिमिटेडको सेवा ब्रान्ड हो · पोखरा, नेपाल।</span></div>
 </footer>
 
 <!-- PHONE ONLY: one join button that stays within reach. It slides away while the hero buttons or the sign-up form are already on screen. -->
@@ -2396,7 +2395,7 @@ if(/[?&]slots=0/.test(location.search))d.classList.add('no-slots');})(document.d
     f11q:"हरेक महिना कसरी तिर्ने?",
     f11a:"Fonepay QR, Khalti, eSewa वा नगद — तपाईंको परिवारलाई जुन सजिलो हुन्छ।",
     previewSent:"प्रिभ्यु मात्र — केही पठाइएन।",
-    footLegal:"कोरा केयर (KORA CARE) कोरा केयर प्राइभेट लिमिटेडको सेवा ब्रान्ड हो · कम्पनी दर्ता नं. ४०२७१८/८३/८४ · PAN/VAT ६२४७१९८०१ · कम्पनी रजिष्ट्रारको कार्यालय, नेपाल।",
+    footLegal:"कोरा केयर (KORA CARE) कोरा केयर प्राइभेट लिमिटेडको सेवा ब्रान्ड हो · पोखरा, नेपाल।",
     /* ---- v5.1 additions ---- */
     navPrice:"मूल्य",
     waHello:"नमस्ते कोरा केयर! पानी प्युरिफायर सदस्यताबारे थप जान्न चाहन्छु।",
