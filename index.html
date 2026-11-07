@@ -21,6 +21,10 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://koracarenepal.com/og.png">
 <link rel="canonical" href="https://koracarenepal.com/">
+<!-- v6.10 (2026-11-07): the same page in Nepali lives at /ne/ (built by web/_qa/make_ne.py) — both pages carry these three lines -->
+<link rel="alternate" hreflang="en" href="https://koracarenepal.com/">
+<link rel="alternate" hreflang="ne" href="https://koracarenepal.com/ne/">
+<link rel="alternate" hreflang="x-default" href="https://koracarenepal.com/">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <meta name="theme-color" content="#f2f6f5">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 30'%3E%3Cpath d='M12 2C12 2 3 13 3 19.5a9 9 0 0 0 18 0C21 13 12 2 12 2Z' fill='%231878b8'/%3E%3C/svg%3E">
@@ -528,6 +532,16 @@ details[open] .faq-x{transform:rotate(45deg)}
 .social-dock.open .dock-items .dock:nth-child(2){animation-delay:.07s}
 .social-dock.open .dock-items .dock:nth-child(3){animation-delay:.11s}
 .social-dock.open .dock-items .dock:nth-child(4){animation-delay:.15s}
+.social-dock.open .dock-items .dock:nth-child(5){animation-delay:.19s}
+/* v6.10 (2026-11-07 · Jun "공유에 주소복사 버튼도"): copy-the-link button — white so it reads apart from the navy + button below it */
+.dock.cp{position:relative;border:1px solid var(--line);background:#fff;padding:0;cursor:pointer;font:inherit}
+.dock.cp svg{fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.dock.cp .ok{display:none}
+.dock.cp.done{border-color:#107c3f}
+.dock.cp.done .ok{display:block;stroke:#107c3f}
+.dock.cp.done .ln{display:none}
+.dock-tip{position:absolute;right:calc(100% + 10px);top:50%;transform:translate(6px,-50%);white-space:nowrap;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.04em;background:var(--ink);color:#fff;border-radius:6px;padding:7px 10px;opacity:0;pointer-events:none;transition:opacity .25s var(--ease),transform .25s var(--ease)}
+.dock.cp.done .dock-tip{opacity:1;transform:translate(0,-50%)}
 @keyframes dockIn{from{opacity:0;transform:scale(.4) translateY(8px)}to{opacity:1;transform:none}}
 .dock-fab{position:relative;width:54px;height:54px;border-radius:50%;border:none;cursor:pointer;background:var(--ink);color:#fff;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(11,32,56,0.28);transition:transform .3s var(--ease),background .3s var(--ease)}
 .dock-fab svg{width:24px;height:24px;transition:transform .35s var(--ease)}
@@ -647,6 +661,9 @@ html.static .rail{display:none}
 .real .real-cs{width:100%;max-width:560px;aspect-ratio:25/24}
 .real .real-cs span{font-size:13px;font-weight:600;letter-spacing:.16em;color:var(--blue-text);padding:8px 16px}
 html[lang="ne"] .real .real-cs span{letter-spacing:0}
+/* v6.10 (2026-11-07 · found by 세션6 on /family/): tracked mono labels (.kicker .14em, nav, chips, buttons) pull Devanagari apart —
+   in Nepali every translated element sets its letters at 0. Attribute+lang specificity (0,2,1) beats the class rules. */
+html[lang="ne"] [data-i18n]{letter-spacing:0}
 .real-more{max-width:1320px;margin:0 auto;padding:0 24px 76px}
 @media (min-width:860px){.real-more{padding-bottom:96px}}
 @media (min-width:860px){.real-in{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px;padding:84px 24px 96px}}
@@ -1880,6 +1897,7 @@ if(/[?&]slots=0/.test(location.search))d.classList.add('no-slots');})(document.d
     <a class="dock ig" href="https://instagram.com/koracarenepal" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
     <a class="dock tt" id="tt-float" href="#" hidden target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
     <a class="dock wa" id="wa-float" data-wa href="#" hidden target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.978-1.719zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg></a>
+    <button class="dock cp" id="dock-copy" type="button" aria-label="Copy the link"><svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg><svg class="ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="dock-tip" id="dock-tip" role="status" aria-live="polite"></span></button>
   </div>
   <button class="dock-fab" id="dock-fab" type="button" aria-expanded="false" aria-controls="dock-items" aria-label="Follow KORA CARE">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg>
@@ -1897,6 +1915,8 @@ if(/[?&]slots=0/.test(location.search))d.classList.add('no-slots');})(document.d
     tiktok: ''      /* e.g. 'https://tiktok.com/@koracarenepal' once the account is created */
   };
   var SITE_URL = 'https://koracarenepal.com';
+  /* v6.10: the link we hand out follows the language on screen — Nepali → /ne/ (opens in Nepali for whoever receives it) */
+  function pageUrl() { return (typeof lang !== 'undefined' && lang === 'ne') ? SITE_URL + '/ne/' : SITE_URL; }
   var NE_DIGITS = '०१२३४५६७८९';   /* defined up here because applyLang() can run before the calculator block below */
   var LIVE_HOST = /(^|\.)koracarenepal\.com$/i.test(location.hostname);
 
@@ -2220,7 +2240,9 @@ if(/[?&]slots=0/.test(location.search))d.classList.add('no-slots');})(document.d
     });
     var lf = document.getElementById('lang-field');
     if (lf) lf.value = l;
-    var swHref = 'https://wa.me/?text=' + encodeURIComponent((l === 'ne' ? 'कोरा केयर — आफ्नै धाराबाट सफा पिउने पानी, पोखरा: ' : 'KORA CARE — clean drinking water from your own tap, Pokhara: ') + SITE_URL);
+    var swHref = 'https://wa.me/?text=' + encodeURIComponent((l === 'ne' ? 'कोरा केयर — आफ्नै धाराबाट सफा पिउने पानी, पोखरा: ' : 'KORA CARE — clean drinking water from your own tap, Pokhara: ') + pageUrl());
+    var dcp = document.getElementById('dock-copy');
+    if (dcp) dcp.setAttribute('aria-label', l === 'ne' ? NE.shareCopy : 'Copy the link');
     [].slice.call(document.querySelectorAll('[data-share-wa]')).forEach(function (sw) { sw.href = swHref; });
     calcRender();
     wireWa(l);
@@ -2359,9 +2381,27 @@ if(/[?&]slots=0/.test(location.search))d.classList.add('no-slots');})(document.d
         shareCopy.textContent = copiedLabel();
         setTimeout(function () { shareCopy.textContent = (lang === 'ne' ? NE.shareCopy : 'COPY THE LINK'); }, 2000);
       };
+      var u = pageUrl();
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(SITE_URL).then(done, function () { fallbackCopyText(SITE_URL, done); });
-      } else { fallbackCopyText(SITE_URL, done); }
+        navigator.clipboard.writeText(u).then(done, function () { fallbackCopyText(u, done); });
+      } else { fallbackCopyText(u, done); }
+    });
+  }
+  /* v6.10: the same copy, from the floating dock (Jun 2026-11-07) — tick + "COPIED ✓" for 2 s, then back to the link icon */
+  var dockCopy = document.getElementById('dock-copy');
+  if (dockCopy) {
+    var dockTip = document.getElementById('dock-tip'), dockTimer = null;
+    dockCopy.addEventListener('click', function () {
+      var u = pageUrl();
+      var done = function () {
+        dockTip.textContent = copiedLabel();
+        dockCopy.classList.add('done');
+        if (dockTimer) clearTimeout(dockTimer);
+        dockTimer = setTimeout(function () { dockCopy.classList.remove('done'); dockTip.textContent = ''; }, 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(u).then(done, function () { fallbackCopyText(u, done); });
+      } else { fallbackCopyText(u, done); }
     });
   }
   function fallbackCopyText(text, done) {
