@@ -145,6 +145,14 @@ html.embed, html.embed body{background:#fff}
 html.embed .iso-page{margin:0 auto;padding-top:0;width:min(700px,100% - 20px);max-width:none}
 html.embed .iso-plate{border:0;box-shadow:none}
 html.embed .iso-legend{margin-top:8px}
+/* embed on a wide screen (the PC pop-up on the main page): drawing left, the parts list right — everything fits without scrolling (Jun 2026-11-07 22:5X: "pc는 여전히 좀 그런데") */
+@media (min-width:900px){
+  html.embed .iso-page{width:min(1060px,100% - 28px);padding-top:6px;min-height:calc(100vh - 12px);display:flex;align-items:center}
+  html.embed .iso-figure{width:100%}
+  html.embed .iso-figure{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:22px;align-items:center}
+  html.embed .iso-legend{margin:0;max-width:none}
+  html.embed .kp-parts{grid-template-columns:1fr !important;gap:4px !important}
+}
 </style>
 <script>if (/[?&]embed=1/.test(location.search)) document.documentElement.classList.add('embed');</script></head><body class="iso" data-theme="light"><main class="iso-page"><header class="ki-head">
   <a class="ki-back" href="/">← koracarenepal.com</a>
