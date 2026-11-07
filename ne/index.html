@@ -777,7 +777,13 @@ html.no-slots [data-slot]{display:none !important}
   .social-dock{transition:bottom .35s var(--ease)}
   .mbar-on .social-dock{bottom:calc(86px + env(safe-area-inset-bottom,0px))}
   .has-mbar .foot{padding-bottom:118px}
+  /* v6.11 D1 (2026-11-07 · 세션4 해부 · Jun 「다 진행해」): WhatsApp already sits in the join bar, the hero and the form — the + stack keeps Facebook, Instagram and copy-the-link */
+  .dock.wa{display:none !important}
+  /* v6.11 N1: the top bar slides away while you read down and comes back the moment you scroll up (it covered ~13% of a phone screen all the time) */
+  .nav{transition:transform .35s var(--ease)}
+  .nav.nav-hide{transform:translateY(-100%)}
 }
+@media (max-width:1023px) and (prefers-reduced-motion:reduce){.nav{transition:none}}
 
 /* ================================================================
    v6.1 (2026-09-20) — pictures instead of words in the five-stage block + a few restrained motion touches.
@@ -1156,6 +1162,154 @@ img.img-in{opacity:1;transition:opacity .45s var(--ease)}
   html.js .dots i{opacity:1;transform:none}
   html.js .stamp{opacity:1;transform:rotate(-8deg)}
 }
+/* v6.11 card examples (세션5 block.css) */
+/* ================= 05b CARD EXAMPLES (2026-11-07) — inside #promise .sec-in, after the three pledges =================
+   Site tokens only (--paper --ink --line --dot --card --muted --soft --gold --navy --ease --disp --mono --body). The gold is a bar, never text.
+   Colours that are not site tokens live only inside the phone (.cd-phone): WhatsApp-like wallpaper #efeae2 · reply blue #027eb5 · the green
+   #1fae57 the site already uses for its WhatsApp button. Layout = the site's .grid2 (1fr 1fr · 44px) on PC, one column at ≤767px. */
+.cd{margin-top:56px;padding-top:40px;border-top:1px dotted var(--dot);display:grid;grid-template-columns:1fr 1fr;gap:18px 44px}
+.cd-text{grid-column:1;grid-row:1;align-self:end}
+.cd-phone-wrap{grid-column:2;grid-row:1/3;display:flex;justify-content:center}
+.cd-foot{grid-column:1;grid-row:2;align-self:start;margin:0;max-width:560px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;line-height:1.6;color:var(--soft)}
+.cd-h{font-family:var(--disp);font-weight:800;letter-spacing:-0.02em;line-height:1.08;font-size:clamp(26px,3vw,38px);margin:10px 0;max-width:560px;text-wrap:pretty}
+.cd-lead{margin:0 0 22px;color:var(--muted);font-size:17px;max-width:560px}
+html[lang="ne"] .cd .kicker{letter-spacing:.04em} /* Devanagari: wide tracking breaks the joined letters (same as .real-cs) */
+
+.cd-tabs{display:flex;flex-direction:column;gap:8px;max-width:560px}
+.cd-tab{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:44px 1fr;gap:2px 14px;align-items:center;padding:14px 16px 14px 13px;border:1px solid var(--line);border-left:3px solid transparent;border-radius:12px;background:var(--card);transition:background .3s var(--ease),border-color .3s var(--ease),transform .3s var(--ease)}
+.cd-tab:hover{transform:translateX(3px);border-color:#a8c3cb}
+.cd-tab:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.cd-tab[aria-selected="true"]{background:var(--paper);border-left-color:var(--gold);border-color:#a8c3cb}
+.cd-ic{grid-row:1/3;width:44px;height:44px;border-radius:50%;background:var(--paper);display:grid;place-items:center;color:var(--ink);transition:background .3s var(--ease),color .3s var(--ease)}
+.cd-tab[aria-selected="true"] .cd-ic{background:var(--ink);color:#fff}
+.cd-ic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.cd-tt{font-family:var(--disp);font-weight:700;font-size:19px;line-height:1.2;color:var(--ink)}
+.cd-tt small{font-family:var(--mono);font-weight:600;font-size:11px;letter-spacing:.12em;color:var(--soft);margin-left:8px;vertical-align:2px}
+.cd-tc{font-family:var(--body);font-size:15px;line-height:1.45;color:var(--muted)}
+.cd-caps{display:none}
+.cd-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+
+/* the phone */
+.cd-phone{--pw:340px;width:var(--pw);border-radius:46px;background:var(--navy);padding:11px;box-shadow:0 30px 60px -28px rgba(11,32,56,.45),0 0 0 1px #1d3a5c inset}
+.cd-scr{border-radius:36px;overflow:hidden;background:#efeae2;display:flex;flex-direction:column}
+.cd-top{display:flex;align-items:center;gap:10px;background:#fff;padding:30px 14px 10px;border-bottom:1px solid #e6e1d8;position:relative}
+.cd-top::before{content:"";position:absolute;top:9px;left:50%;width:84px;height:22px;margin-left:-42px;border-radius:12px;background:var(--navy)}
+.cd-bk{width:10px;height:10px;border-left:2px solid #54656f;border-bottom:2px solid #54656f;transform:rotate(45deg);margin:0 2px 0 6px}
+.cd-top img{width:34px;height:34px;border-radius:50%;border:1px solid #e3e3e3;background:#fff;display:block}
+.cd-nm{font:600 15px/1.2 var(--body);color:#111b21}
+.cd-st{font:400 12px/1.2 var(--body);color:#667781}
+.cd-panes{display:grid;padding:12px 10px 10px;flex:1}
+/* all four chats sit in one grid cell: the phone keeps the tallest one's height, so a tap never moves the page below */
+.cd-pane{grid-area:1/1;align-self:start;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .45s var(--ease),transform .45s var(--ease),visibility 0s .45s}
+.cd-pane.on{opacity:1;visibility:visible;transform:none;transition:opacity .45s var(--ease),transform .45s var(--ease),visibility 0s}
+.cd-bub{background:#fff;border-radius:0 10px 10px 10px;padding:4px 4px 6px;box-shadow:0 1px .5px rgba(11,20,26,.13);position:relative}
+.cd-bub::before{content:"";position:absolute;left:-7px;top:0;border-top:8px solid #fff;border-left:8px solid transparent}
+.cd-media{display:block;width:100%;border:0;padding:0;margin:0;background:none;cursor:zoom-in;position:relative;border-radius:7px;overflow:hidden;max-height:calc((var(--pw) - 50px) * 1.56)}
+.cd-media img{display:block;width:100%;height:auto}
+.cd-media:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.cd-more{position:absolute;left:0;right:0;bottom:0;height:54px;background:linear-gradient(to bottom,rgba(255,255,255,0),#fff 70%);display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px}
+.cd-more span{font:600 12px var(--mono);letter-spacing:.04em;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 11px}
+.cd-media:not(.cut) .cd-more{display:none}
+.cd-txt{font:400 13.5px/1.42 var(--body);color:#111b21;padding:7px 6px 0;margin:0}
+.cd-btns{display:flex;flex-direction:column;gap:4px;margin-top:4px}
+.cd-btns.two{flex-direction:row}
+.cd-btns span{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#fff;border-radius:8px;box-shadow:0 1px .5px rgba(11,20,26,.13);padding:9px 8px;font:600 13.5px/1.2 var(--body);color:#027eb5}
+.cd-btns svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cd-bot{display:flex;gap:8px;align-items:center;padding:8px 10px 14px}
+.cd-bot i{flex:1;height:38px;border-radius:20px;background:#fff;display:block}
+.cd-bot b{width:38px;height:38px;border-radius:50%;background:#1fae57;display:block}
+
+/* the whole card */
+dialog.cd-big{border:0;padding:0;background:transparent;max-width:min(560px,94vw);max-height:92vh;overflow:visible}
+dialog.cd-big::backdrop{background:rgba(8,24,39,.72)}
+.cd-in{max-height:88vh;overflow:auto;border-radius:14px;background:#fff;box-shadow:0 30px 80px rgba(0,0,0,.4)}
+.cd-in img{display:block;width:100%;height:auto}
+.cd-x{position:absolute;top:-14px;right:-10px;width:40px;height:40px;border-radius:50%;border:0;background:#fff;color:var(--ink);font:600 20px/40px var(--body);cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25);z-index:1}
+.cd-x:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+@media (max-width:767px){
+  .cd{grid-template-columns:1fr;gap:0;margin-top:44px;padding-top:32px}
+  .cd-text,.cd-phone-wrap,.cd-foot{grid-column:1;grid-row:auto}
+  .cd-lead{font-size:16px;margin-bottom:16px}
+  .cd-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:none}
+  .cd-tab{grid-template-columns:34px 1fr;padding:10px 10px 10px 9px;min-height:56px;gap:0 10px}
+  .cd-tab:hover{transform:none}
+  .cd-ic{width:34px;height:34px;grid-row:auto}
+  .cd-ic svg{width:18px;height:18px}
+  .cd-tt{font-size:15.5px}
+  .cd-tt small,.cd-tc{display:none}
+  .cd-caps{display:block;margin:12px 2px 18px;min-height:44px}
+  .cd-caps p{display:none;margin:0;font-size:15px;line-height:1.45;color:var(--muted)}
+  .cd-caps p.on{display:block}
+  .cd-phone{--pw:300px;border-radius:42px;padding:9px}
+  .cd-scr{border-radius:34px}
+  .cd-foot{margin-top:16px;text-align:center;max-width:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .cd-pane,.cd-pane.on,.cd-tab,.cd-ic{transition:none}
+  .cd-pane{transform:none}
+  .cd-tab:hover{transform:none}
+}
+/* ================= /05b CARD EXAMPLES ================= */
+/* v6.11 H1 + K1 (세션4 · Jun 「다 진행해」 #4) */
+/* ================================================================
+   H1 (2026-11-07 · 작업 04 절별 해부) — how 절 비교 카드 3장, 폰·태블릿(≤1023px)에서만 옆으로 넘기기
+   · 카드 모양·순서·글 그대로 (표로 합치지 않음 — 11/01 P3 「4열 표」와 다른 방식)
+   · 다음 카드 끝이 살짝 보여서 「옆에 더 있다」가 보인다 · 손을 떼면 카드 하나에 딱 멈춘다(scroll-snap)
+   · PC(≥1024px) = 변화 0 (아래 규칙이 전부 이 미디어 쿼리 안)
+   · 움직임 줄이기 설정이면 부드러운 스크롤만 끈다(넘기기 자체는 손가락이 하는 것)
+   끼울 곳: 메인 스타일 블록 맨 끝(스타일 닫는 태그 바로 앞) — 기존 .cmp 규칙(「how: 3-way compare」 · @media (min-width:1024px)의 3열)보다 뒤에 와야 한다
+   ================================================================ */
+@media (max-width:1023px){
+  .cmp{
+    display:flex;grid-template-columns:none;gap:14px;
+    overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;scroll-padding-inline:24px;scroll-behavior:smooth;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+    /* the strip runs edge to edge of the phone so the next card peeks in from the right edge */
+    margin-inline:-24px;padding:10px 24px 26px;   /* bottom room = the card shadow is not cut off */
+  }
+  .cmp::-webkit-scrollbar{display:none}
+  .cmp-col{flex:0 0 min(84%,380px);scroll-snap-align:start;scroll-snap-stop:always}
+  .cmp-dots{display:flex;justify-content:center;gap:8px;margin:2px 0 0}   /* only drawn when H1.js is added */
+  .cmp-dots i{width:7px;height:7px;border-radius:999px;background:var(--line);transition:width .35s var(--ease),background-color .35s var(--ease)}
+  .cmp-dots i.on{width:22px;background:var(--blue)}
+}
+@media (max-width:1023px) and (prefers-reduced-motion:reduce){
+  .cmp{scroll-behavior:auto}
+  .cmp-dots i{transition:none}
+}
+@media (min-width:1024px){ .cmp-dots{display:none} }
+/* ================================================================
+   K1 (2026-11-07 · 작업 04 절별 해부) — 가입 절(#contact) PC(≥1024px)에서만 2열
+   · 왼쪽 = 제목·안내·네팔어 한 줄·24가구·WhatsApp·전화번호(+ 「Prefer to write…」) / 오른쪽 = 폼(또는 보낸 뒤 「You're on the list」)
+   · 마크업 변경 0 · 글 변경 0 — .contact-in을 grid로 바꾸고 폼만 오른쪽 칸에 세운다
+   · 폰·태블릿(≤1023px) = 변화 0 (아래 규칙이 전부 이 미디어 쿼리 안)
+   · 왼쪽 줄 수(8개 · 「Prefer to write…」를 펼치면 9개)보다 행을 하나 더 두고 마지막 행을 1fr로 → 폼 높이가 왼쪽 줄 사이를 벌리지 않는다
+   끼울 곳: 메인 스타일 블록 맨 끝(스타일 닫는 태그 바로 앞) — 기존 .contact-in(max-width:760px · 가운데 정렬)·.signup-form(margin auto)보다 뒤에 와야 한다
+   🚨 .contact-in의 바로 아래 자식 순서·개수가 바뀌면(새 줄 추가 등) grid-template-rows의 9를 같이 고칠 것
+   ================================================================ */
+@media (min-width:1024px){
+  .contact-in{
+    max-width:1180px;display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,460px);
+    grid-template-rows:repeat(9,auto) 1fr;
+    column-gap:clamp(48px,6vw,96px);
+    align-items:start;text-align:left;
+    padding-top:96px;padding-bottom:110px;   /* bottom room = the mountain line stays under the form */
+  }
+  .contact-in>*{grid-column:1;justify-self:start;max-width:560px}
+  .contact-in>.signup-form,.contact-in>.form-sent{grid-column:2;grid-row:1 / span 10;justify-self:stretch;max-width:none;margin:0;align-self:start}
+  .contact .sub{margin:14px 0 0}
+  .contact h2{margin-top:10px}
+  .contact .proof{margin:24px 0 0}
+  .contact .alt-toggle{margin:18px 0 0;padding-left:0}
+  .contact .alt-wrap .cta-btns{justify-content:flex-start !important}   /* overrides the inline style="justify-content:center" */
+  .contact .alt-wrap .mailbox{margin-left:0}
+  /* the form sits on a quiet panel so the right column reads as one block */
+  .contact .signup-form{background:rgba(8,24,39,.55);border:1px solid #1d3a58;border-radius:16px;padding:26px 26px 18px}
+  .contact .form-sent{background:rgba(8,24,39,.55);border:1px solid #1d3a58;border-radius:16px}
+}
 </style>
 </head>
 <body>
@@ -1484,7 +1638,8 @@ if(/[?&]slots=0/.test(location.search))d.classList.add('no-slots');})(document.d
     <p class="pay-line" data-rise><b data-i18n="payK" data-en="PAY BY">भुक्तानी</b><span data-i18n="payV" data-en="Fonepay QR · Khalti · eSewa · cash">Fonepay QR · Khalti · eSewa · नगद</span></p>
     <p class="price-fine" data-rise data-i18n="prFine" data-en="Prices include VAT. These are our launch prices — the figures in your signed agreement are the ones that count.">मूल्यमा भ्याट समावेश छ। यी हाम्रा सुरुवाती (लन्च) मूल्य हुन् — अन्तिम मान्य रकम तपाईंले सही गरेको सम्झौतामा लेखिएकै हुन्छ।</p>
     <!-- DECIDING TOGETHER — in our survey the family decides about water (family + self = 85%), so the numbers need a one-tap way to reach the family. -->
-    <div class="fam" data-rise><p data-i18n="famLead" data-en="Deciding this with your family? Send them this page — every number is on it.">परिवारसँग सल्लाह गर्दै हुनुहुन्छ? यो पेज उहाँहरूलाई पठाउनुहोस् — सबै रकम यसैमा छ।</p><a data-share-wa href="https://wa.me/?text=KORA%20CARE%20%E2%80%94%20clean%20drinking%20water%20from%20your%20own%20tap%2C%20Pokhara%3A%20https%3A%2F%2Fkoracarenepal.com" target="_blank" rel="noopener" data-i18n="shareWa" data-en="Send on WhatsApp">WhatsApp मा पठाउनुहोस्</a></div>
+    <div class="fam" data-rise><p data-i18n="famLead" data-en="Deciding this with your family? Send them the short page in Nepali — every number is one tap away from it.">परिवारसँग सल्लाह गर्दै हुनुहुन्छ? उहाँहरूलाई नेपालीमा छोटो पेज पठाउनुहोस् — सबै रकम त्यहाँबाट एक थिचाइमा हेर्न सकिन्छ।</p><a data-share-family href="https://wa.me/?text=KORA%20CARE%20%E2%80%94%20clean%20drinking%20water%20from%20your%20own%20tap%2C%20Pokhara%3A%20https%3A%2F%2Fkoracarenepal.com%2Ffamily%2F" target="_blank" rel="noopener" data-i18n="shareWa" data-en="Send on WhatsApp">WhatsApp मा पठाउनुहोस्</a></div><!-- v6.11 (2026-11-07 · Jun 「다 진행해」 #7): this share button now sends /family/ (the short Nepali page, built by 세션6) — famLead rewritten so it no longer says "this page · every number is on it" (the short page carries one price line + a link to the full table). EN+NE = new sentence · NE = Claude draft, Tara to check -->
+
     <!-- (after the lab report: the PROOF LINE sentence repeats here, under the small print) -->
 
     <!-- QUESTIONS ABOUT THE MONEY — moved up from the main FAQ so each answer sits beside the numbers it is about -->
@@ -1675,6 +1830,90 @@ if(/[?&]slots=0/.test(location.search))d.classList.add('no-slots');})(document.d
         <p data-i18n="pl3b" data-en="The machine is ours, always. If it&#x27;s not working, it&#x27;s our problem — not yours.">मेसिन सधैं हाम्रो हो। चलेन भने — समस्या हाम्रो, तपाईंको होइन।</p>
       </div>
     </div>
+<!-- v6.11 (2026-11-07 · Jun 「다 진행해」 #6): Examples of the cards we send — built by 세션5 (web/lab/2026-11-07/05_고객카드/parts) · 4 cards, no overdue card · wording = examples only -->
+    <!-- ================= 05b CARD EXAMPLES (2026-11-07 · Jun 「다 좋다 다 진행해」 · inside #promise, right after the three pledges) =================
+         Sample cards drawn with the server's own card code (functions/card.js) for a made-up home: Sita Gurung · KC-ABCD · a QR that only says
+         "SAMPLE · not a payment QR". Bubble text = the approved WhatsApp templates word for word (English only — the Nepali is inside the card).
+         Wording stays at "examples": the 09:00 automatic bill reminder is switched off until the PoC, so no "every time / 3 days before" here.
+         Amounts = the price table above (months 2–13: Rs 1,400). Parts: block.css · block.js · i18n.json (cd* keys) · /media/cards/kora-card-*.jpg -->
+    <div class="cd" id="cards-demo">
+      <div class="cd-text" data-rise>
+        <p class="kicker" style="margin:0" data-i18n="cdKicker" data-en="ON YOUR PHONE">तपाईंको फोनमा</p>
+        <h3 class="cd-h" id="cd-h" data-i18n="cdH" data-en="Examples of the cards we send">हामीले पठाउने कार्डका नमुना</h3>
+        <p class="cd-lead" data-i18n="cdLead" data-en="Bills, receipts and visit notes reach you on WhatsApp as a picture card — English and Nepali on the same card.">बिल, रसिद र भ्रमणको सूचना WhatsApp मा तस्बिर-कार्डको रूपमा आउँछ — एउटै कार्डमा अंग्रेजी र नेपाली।</p>
+        <div class="cd-tabs" role="tablist" aria-labelledby="cd-h">
+          <button class="cd-tab" type="button" role="tab" id="cd-tab-bill" aria-controls="cd-pane-bill" aria-selected="true" tabindex="0" data-k="bill">
+            <span class="cd-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg></span>
+            <span class="cd-tt"><span data-i18n="cdT1" data-en="Bill reminder">बिलको सूचना</span><small aria-hidden="true">01</small></span>
+            <span class="cd-tc" data-i18n="cdC1" data-en="The amount, the month it covers, and a QR you scan with your bank app.">रकम, कुन महिनाको हो, र बैंक एपले स्क्यान गर्ने QR।</span>
+          </button>
+          <button class="cd-tab" type="button" role="tab" id="cd-tab-receipt" aria-controls="cd-pane-receipt" aria-selected="false" tabindex="-1" data-k="receipt">
+            <span class="cd-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.6 2.6L16 9.6"/></svg></span>
+            <span class="cd-tt"><span data-i18n="cdT2" data-en="Receipt">रसिद</span><small aria-hidden="true">02</small></span>
+            <span class="cd-tc" data-i18n="cdC2" data-en="What you paid, what it covered, and how much of your refundable deposit we hold so far.">कति तिर्नुभयो, केका लागि, र फिर्ता हुने धरौटी अहिलेसम्म कति जम्मा भयो।</span>
+          </button>
+          <button class="cd-tab" type="button" role="tab" id="cd-tab-visit" aria-controls="cd-pane-visit" aria-selected="false" tabindex="-1" data-k="visit">
+            <span class="cd-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></span>
+            <span class="cd-tt"><span data-i18n="cdT3" data-en="Visit tomorrow">भोलि भ्रमण</span><small aria-hidden="true">03</small></span>
+            <span class="cd-tc" data-i18n="cdC3" data-en="Who is coming and on which day. The day doesn&#x27;t suit you? Tap Change day.">को आउँदैछ र कुन दिन। त्यो दिन मिलेन? Change day थिच्नुहोस्।</span>
+          </button>
+          <button class="cd-tab" type="button" role="tab" id="cd-tab-way" aria-controls="cd-pane-way" aria-selected="false" tabindex="-1" data-k="way">
+            <span class="cd-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-6-5.4-6-10.5A6 6 0 0 1 18 10.5C18 15.6 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.2"/></svg></span>
+            <span class="cd-tt"><span data-i18n="cdT4" data-en="On the way">बाटोमा छौं</span><small aria-hidden="true">04</small></span>
+            <span class="cd-tc" data-i18n="cdC4" data-en="Your KORA person&#x27;s name and about what time they will arrive.">तपाईंको KORA व्यक्तिको नाम र करिब कति बजे आइपुग्छ।</span>
+          </button>
+        </div>
+        <!-- phone only: the chosen card's line under the 2×2 buttons (the same four keys — the page's language switch translates them) -->
+        <div class="cd-caps" aria-live="polite">
+          <p class="on" data-k="bill" data-i18n="cdC1" data-en="The amount, the month it covers, and a QR you scan with your bank app.">रकम, कुन महिनाको हो, र बैंक एपले स्क्यान गर्ने QR।</p>
+          <p data-k="receipt" data-i18n="cdC2" data-en="What you paid, what it covered, and how much of your refundable deposit we hold so far.">कति तिर्नुभयो, केका लागि, र फिर्ता हुने धरौटी अहिलेसम्म कति जम्मा भयो।</p>
+          <p data-k="visit" data-i18n="cdC3" data-en="Who is coming and on which day. The day doesn&#x27;t suit you? Tap Change day.">को आउँदैछ र कुन दिन। त्यो दिन मिलेन? Change day थिच्नुहोस्।</p>
+          <p data-k="way" data-i18n="cdC4" data-en="Your KORA person&#x27;s name and about what time they will arrive.">तपाईंको KORA व्यक्तिको नाम र करिब कति बजे आइपुग्छ।</p>
+        </div>
+      </div>
+
+      <div class="cd-phone-wrap" data-rise>
+        <div class="cd-phone" role="group" aria-labelledby="cd-chat">
+          <div class="cd-scr">
+            <div class="cd-top"><i class="cd-bk" aria-hidden="true"></i><img src="/apple-touch-icon.png" width="34" height="34" alt="" decoding="async"><div id="cd-chat"><div class="cd-nm">KORA CARE</div><div class="cd-st" data-i18n="cdSample" data-en="Sample chat">नमुना च्याट</div></div></div>
+            <div class="cd-panes">
+              <div class="cd-pane on" role="tabpanel" id="cd-pane-bill" aria-labelledby="cd-tab-bill">
+                <div class="cd-bub">
+                  <button class="cd-media" type="button" data-full="/media/cards/kora-card-bill.jpg"><img src="/media/cards/kora-card-bill.jpg" width="640" height="969" decoding="async" fetchpriority="low" alt="Sample bill card: NPR 1,400, 2nd bill, 2 Dec 2026 to 1 Jan 2027, due in 3 days, a QR to scan with a bank app, 1,100 subscription + 300 deposit — in English and Nepali"><span class="cd-more"><span data-i18n="cdMore" data-en="See the whole card">पूरा कार्ड हेर्नुहोस्</span></span></button>
+                  <p class="cd-txt" lang="en">Namaste Sita ji, this is KORA CARE. Your water purifier bill of NPR 1,400 is due on 2 Dec 2026 · २०८३ मंसिर १६. To pay, scan the KORA CARE QR on your bill picture with any bank app. Please write KC-ABCD in the payment remark.</p>
+                </div>
+                <div class="cd-btns two" aria-hidden="true" lang="en"><span><svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-2"/></svg>I have paid</span><span><svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-2"/></svg>Not yet</span></div>
+              </div>
+              <div class="cd-pane" role="tabpanel" id="cd-pane-receipt" aria-labelledby="cd-tab-receipt">
+                <div class="cd-bub">
+                  <button class="cd-media" type="button" data-full="/media/cards/kora-card-receipt.jpg"><img src="/media/cards/kora-card-receipt.jpg" width="640" height="1246" loading="lazy" decoding="async" alt="Sample receipt card: NPR 1,400 paid in cash on 2 Dec 2026, paid on time — monthly subscription 1,100 and refundable deposit 300, deposit held so far 1 of 12, NPR 300 of 3,600, next bill 2 Jan 2027"><span class="cd-more"><span data-i18n="cdMore" data-en="See the whole card">पूरा कार्ड हेर्नुहोस्</span></span></button>
+                  <p class="cd-txt" lang="en">Namaste Sita ji, this is KORA CARE. We received NPR 1,400 in cash from you on 2 Dec 2026 · २०८३ मंसिर १६ for your monthly bill — your receipt is in the picture. If you did not pay this, tap the button below.</p>
+                </div>
+                <div class="cd-btns" aria-hidden="true" lang="en"><span><svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-2"/></svg>I did not pay this</span></div>
+              </div>
+              <div class="cd-pane" role="tabpanel" id="cd-pane-visit" aria-labelledby="cd-tab-visit">
+                <div class="cd-bub">
+                  <button class="cd-media" type="button" data-full="/media/cards/kora-card-visit.jpg"><img src="/media/cards/kora-card-visit.jpg" width="640" height="809" loading="lazy" decoding="async" alt="Sample visit card: We come tomorrow — Hari, your KORA person, visit on 10 Dec 2026; we check the purifier and the water; not a good day? tap Change day"><span class="cd-more"><span data-i18n="cdMore" data-en="See the whole card">पूरा कार्ड हेर्नुहोस्</span></span></button>
+                  <p class="cd-txt" lang="en">Namaste Sita ji, this is Hari from KORA CARE. Your water purifier service visit is planned for tomorrow, 10 Dec 2026 · २०८३ मंसिर २४. If tomorrow does not suit you, tap Change day.</p>
+                </div>
+                <div class="cd-btns two" aria-hidden="true" lang="en"><span><svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-2"/></svg>OK</span><span><svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-2"/></svg>Change day</span></div>
+              </div>
+              <div class="cd-pane" role="tabpanel" id="cd-pane-way" aria-labelledby="cd-tab-way">
+                <div class="cd-bub">
+                  <button class="cd-media" type="button" data-full="/media/cards/kora-card-way.jpg"><img src="/media/cards/kora-card-way.jpg" width="640" height="609" loading="lazy" decoding="async" alt="Sample on-the-way card: We are on the way — Hari, your KORA person, arriving around 11:30 on 10 Dec 2026"><span class="cd-more"><span data-i18n="cdMore" data-en="See the whole card">पूरा कार्ड हेर्नुहोस्</span></span></button>
+                  <p class="cd-txt" lang="en">Namaste Sita ji, Hari from KORA CARE is on the way, arriving around 11:30 for your water purifier visit.</p>
+                </div>
+              </div>
+            </div>
+            <div class="cd-bot" aria-hidden="true"><i></i><b></b></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="cd-foot" data-rise data-i18n="cdFoot" data-en="Samples: a made-up home (Sita Gurung · KC-ABCD) and a sample QR that pays nothing. Amounts follow the price table above (months 2–13: Rs 1,400).">नमुना: काल्पनिक घर (Sita Gurung · KC-ABCD) र भुक्तानी नहुने नमुना QR। रकम माथिको मूल्य तालिका अनुसार (महिना २–१३: रु १,४००)।</p>
+    </div>
+    <dialog class="cd-big" id="cd-big"><button class="cd-x" type="button"><span aria-hidden="true">✕</span><span class="cd-sr" data-i18n="cdClose" data-en="Close">बन्द गर्नुहोस्</span></button><div class="cd-in"><img alt=""></div></dialog>
+    <!-- ================= /05b CARD EXAMPLES ================= -->
   </div>
 </section>
 
@@ -2009,8 +2248,40 @@ if(/[?&]slots=0/.test(location.search))d.classList.add('no-slots');})(document.d
     }
   }
 
+  /* ---------- v6.11 N1: phone top bar hides on the way down, returns on the way up ---------- */
+  var navEl = document.querySelector('.nav');
+  if (navEl && window.matchMedia) {
+    var navMq = window.matchMedia('(max-width:1023px)');
+    var navLastY = window.pageYOffset || 0, navTick = false;
+    var navStep = function () {
+      navTick = false;
+      var y = window.pageYOffset || 0, d = y - navLastY;
+      if (!navMq.matches || y < 140) { navEl.classList.remove('nav-hide'); navLastY = y; return; }
+      if (d > 6) { navEl.classList.add('nav-hide'); navLastY = y; }
+      else if (d < -6) { navEl.classList.remove('nav-hide'); navLastY = y; }
+    };
+    window.addEventListener('scroll', function () { if (!navTick) { navTick = true; (window.requestAnimationFrame || setTimeout)(navStep); } }, { passive: true });
+    navEl.addEventListener('focusin', function () { navEl.classList.remove('nav-hide'); });   /* keyboard users never lose the menu */
+  }
+
   /* ---------- i18n ---------- */
   var NE = {
+    /* v6.11 card examples · Claude draft · Tara to check */
+    cdKicker:"तपाईंको फोनमा",
+    cdH:"हामीले पठाउने कार्डका नमुना",
+    cdLead:"बिल, रसिद र भ्रमणको सूचना WhatsApp मा तस्बिर-कार्डको रूपमा आउँछ — एउटै कार्डमा अंग्रेजी र नेपाली।",
+    cdT1:"बिलको सूचना",
+    cdT2:"रसिद",
+    cdT3:"भोलि भ्रमण",
+    cdT4:"बाटोमा छौं",
+    cdC1:"रकम, कुन महिनाको हो, र बैंक एपले स्क्यान गर्ने QR।",
+    cdC2:"कति तिर्नुभयो, केका लागि, र फिर्ता हुने धरौटी अहिलेसम्म कति जम्मा भयो।",
+    cdC3:"को आउँदैछ र कुन दिन। त्यो दिन मिलेन? Change day थिच्नुहोस्।",
+    cdC4:"तपाईंको KORA व्यक्तिको नाम र करिब कति बजे आइपुग्छ।",
+    cdFoot:"नमुना: काल्पनिक घर (Sita Gurung · KC-ABCD) र भुक्तानी नहुने नमुना QR। रकम माथिको मूल्य तालिका अनुसार (महिना २–१३: रु १,४००)।",
+    cdSample:"नमुना च्याट",
+    cdMore:"पूरा कार्ड हेर्नुहोस्",
+    cdClose:"बन्द गर्नुहोस्",
     navProblem:"किन फेर्ने", navHow:'कसरी काम गर्छ', navInside:'भित्र के छ', navPeople:'हाम्रो टोली', navPromise:'हाम्रो वाचा', navFaq:'प्रश्नहरू', navCta:"सूचीमा जोडिनुहोस्",
     kicker:"पोखरा, नेपाल · यही हिउँदमा पहिलो घरहरू",
     h1a:'असीमित सफा पिउने पानी, ', h1b:'आफ्नै धाराबाट।',
@@ -2184,7 +2455,7 @@ if(/[?&]slots=0/.test(location.search))d.classList.add('no-slots');})(document.d
     tlDep:"तपाईंको धरौटी",
     tlCap:"३६ महिनाको हरेक महिना, अनुपातमै कोरिएको। सुनौलो भाग तपाईंको धरौटी हो — अवधिको अन्त्यमा, मेसिन चालु अवस्थामा फिर्ता गरेपछि, त्यो फिर्ता हुन्छ।",
     jarYear:"तपाईंको एक वर्षका सबै जार — हरेक जारको एउटा चिन्ह",
-    famLead:"परिवारसँग सल्लाह गर्दै हुनुहुन्छ? यो पेज उहाँहरूलाई पठाउनुहोस् — सबै रकम यसैमा छ।",
+    famLead:"परिवारसँग सल्लाह गर्दै हुनुहुन्छ? उहाँहरूलाई नेपालीमा छोटो पेज पठाउनुहोस् — सबै रकम त्यहाँबाट एक थिचाइमा हेर्न सकिन्छ।",   /* v6.11 new sentence · Claude draft · Tara to check */
     db1v:"रु ३७",
     db1l:"कोरा, दिनको",
     db2v:"रु ५०–६०",
@@ -2246,6 +2517,8 @@ if(/[?&]slots=0/.test(location.search))d.classList.add('no-slots');})(document.d
     var dcp = document.getElementById('dock-copy');
     if (dcp) dcp.setAttribute('aria-label', l === 'ne' ? NE.shareCopy : 'Copy the link');
     [].slice.call(document.querySelectorAll('[data-share-wa]')).forEach(function (sw) { sw.href = swHref; });
+    /* v6.11: the family button always sends /family/ (that page opens in Nepali first; ?lang=en there for English) — text = the same share line, only the address differs */
+    [].slice.call(document.querySelectorAll('[data-share-family]')).forEach(function (sw) { sw.href = 'https://wa.me/?text=' + encodeURIComponent((l === 'ne' ? 'कोरा केयर — आफ्नै धाराबाट सफा पिउने पानी, पोखरा: ' : 'KORA CARE — clean drinking water from your own tap, Pokhara: ') + SITE_URL + '/family/'); });
     calcRender();
     wireWa(l);
     var sc = document.getElementById('stagecount');
@@ -2810,6 +3083,100 @@ if(/[?&]slots=0/.test(location.search))d.classList.add('no-slots');})(document.d
   bar.addEventListener('pointermove', function (e) { if (y0 === null) return; dy = Math.max(0, e.clientY - y0); panel.style.transform = 'translateY(' + dy + 'px)'; });
   function up() { if (y0 === null) return; y0 = null; panel.style.transition = ''; if (dy > 90) close(); else panel.style.transform = ''; }
   bar.addEventListener('pointerup', up); bar.addEventListener('pointercancel', up);
+})();
+</script>
+<script>
+/* ================= 05b CARD EXAMPLES (2026-11-07) — buttons → the card in the phone · «See the whole card» · nothing global =================
+   The words are switched by the page's own applyLang (data-i18n · cd* keys in i18n.json) — this file never touches language.
+   Motion = CSS only (site easing) · prefers-reduced-motion = no transitions (block.css). */
+(function () {
+  var root = document.getElementById('cards-demo');
+  if (!root) return;
+  var tabs = [].slice.call(root.querySelectorAll('.cd-tab'));
+  var caps = [].slice.call(root.querySelectorAll('.cd-caps p'));
+  function select(tab, focus) {
+    var k = tab.getAttribute('data-k');
+    tabs.forEach(function (b) {
+      var on = b === tab;
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+      b.tabIndex = on ? 0 : -1;
+      var p = document.getElementById(b.getAttribute('aria-controls'));
+      if (!p) return;
+      p.classList.toggle('on', on);
+      if (on) [].slice.call(p.querySelectorAll('img[loading="lazy"]')).forEach(function (im) { im.loading = 'eager'; });
+    });
+    caps.forEach(function (c) { c.classList.toggle('on', c.getAttribute('data-k') === k); });
+    if (focus) tab.focus();
+  }
+  tabs.forEach(function (b, i) {
+    b.addEventListener('click', function () { select(b); });
+    b.addEventListener('keydown', function (e) {
+      var n = null;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') n = tabs[(i + 1) % tabs.length];
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') n = tabs[(i - 1 + tabs.length) % tabs.length];
+      else if (e.key === 'Home') n = tabs[0];
+      else if (e.key === 'End') n = tabs[tabs.length - 1];
+      if (n) { e.preventDefault(); select(n, true); }
+    });
+  });
+
+  /* a tall card is cut in the bubble → show «See the whole card» (from the img width/height attributes, so a lazy image needs no load first) */
+  var media = [].slice.call(root.querySelectorAll('.cd-media'));
+  function markCut() {
+    media.forEach(function (m) {
+      var im = m.querySelector('img');
+      var w = +im.getAttribute('width'), h = +im.getAttribute('height');
+      if (!w || !h || !m.clientWidth) return;
+      m.classList.toggle('cut', m.clientWidth * h / w > m.clientHeight + 2);
+    });
+  }
+  markCut();
+  window.addEventListener('resize', markCut, { passive: true });
+  window.addEventListener('load', markCut);
+
+  /* the whole card in a dialog (Esc · ✕ · tap outside closes) */
+  var dlg = document.getElementById('cd-big');
+  if (!dlg) return;
+  var big = dlg.querySelector('img');
+  function shut() { if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); }
+  media.forEach(function (m) {
+    m.addEventListener('click', function () {
+      big.src = m.getAttribute('data-full');
+      big.alt = m.querySelector('img').alt;
+      if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+    });
+  });
+  dlg.querySelector('.cd-x').addEventListener('click', shut);
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) shut(); });
+})();
+/* ================= /05b CARD EXAMPLES ================= */
+</script>
+<script>
+/* H1 점 표시 (선택 · 2026-11-07 작업 04) — 비교 카드 줄 밑에 점 3개, 지금 보이는 카드의 점이 길어진다.
+   · H1.css만으로도 넘기기는 된다. 이 파일은 「몇 번째 카드인지」 점만 더한다.
+   · 마크업 변경 0 — 점은 이 스크립트가 만든다(aria-hidden · 글자 0 → 네팔어 번역 필요 없음)
+   · 폰·태블릿(≤1023px)에서만 보인다(H1.css) · IntersectionObserver 없는 옛 브라우저면 아무것도 안 함
+   끼울 곳: 메인 스크립트 블록 안 아무 데나(또는 body 닫는 태그 앞 별도 script 태그) */
+(function () {
+  var strip = document.querySelector('.cmp');
+  if (!strip || !('IntersectionObserver' in window)) return;
+  var cards = strip.querySelectorAll('.cmp-col');
+  if (cards.length < 2) return;
+  var dots = document.createElement('div');
+  dots.className = 'cmp-dots';
+  dots.setAttribute('aria-hidden', 'true');
+  for (var i = 0; i < cards.length; i++) dots.appendChild(document.createElement('i'));
+  strip.insertAdjacentElement('afterend', dots);
+  var marks = dots.children;
+  marks[0].className = 'on';
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var k = Array.prototype.indexOf.call(cards, e.target);
+      for (var j = 0; j < marks.length; j++) marks[j].className = j === k ? 'on' : '';
+    });
+  }, { root: strip, threshold: 0.6 });
+  for (var c = 0; c < cards.length; c++) io.observe(cards[c]);
 })();
 </script>
 </body>
